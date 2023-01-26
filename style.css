@@ -1,0 +1,199 @@
+@charset "UTF-08";
+
+/*limpa todos os tamanhos padrões*/
+*{
+  margin:0px;
+  padding: 0px;
+  box-sizing:border-box ;
+  border-style: none;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+  --cor1:#000000;
+}
+
+body {
+  background-color: #f2f2f2;
+  height: 100vh;
+  width: 100vw;
+}
+
+main {
+ position: relative;
+ height: 100vh;
+  width: 100vw;
+}
+
+section#Login{
+  position: absolute;
+  top: 50%;
+  left: 50%; 
+  transform:translate(-50%, -50%);
+  background-color: white;
+  width: 240px;
+  height: 500px;
+  border-radius: 20px;
+  box-shadow: 0px 0px  10px rgba(0, 0, 0, 0.649);
+  overflow: hidden;
+  transition: widht .5s, height .5s;
+  transition-timing-function: ease;
+
+}
+section#Login >div#imagem{
+  display: block;
+  background: blue url(Imagens/imagemLogin5.jpg) no-repeat;
+  background-size: cover;
+  background-position: left top;
+  height: 200px;
+}
+section#Login >div#divFormulario{
+  display: block;
+  padding: 10px;
+}
+#HomePage, #NewTask{
+  position: relative;
+  height: 90vh;
+   width: 90vw;
+   top: 50%;
+  left: 50%;
+  transform:translate(-50%, -50%);
+  border-radius: 20px;
+  box-shadow: 0px 0px  10px rgba(74, 96, 53, 0.649);
+}
+
+div#divFormulario > h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+div#divFormulario > p {
+  font-size: 0.8em;
+  margin-bottom: 5px;
+}
+
+input#btnLogin[type=submit] {
+  display: block;
+  font-size: 1em;
+  font-weight: bolder;
+  width: 100%;
+  height: 40px;
+  background-color: rgb(220, 217, 217);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input#btnLogin[type=submit]:hover {
+  background-color: rgb(142, 140, 140);
+}  
+
+label.txtLogin {
+  background-color: rgb(220, 217, 217);
+  display: block;
+  width: 100%;
+  height: 20px;
+  border-radius: 5px;
+  margin: 5px 0px;
+  font-size: smaller;
+}
+div#side-bar{
+  position: absolute;
+  background: rgb(60, 60, 60) url(Imagens/imagemLoginPB2.jpg) no-repeat;
+  background-size: cover;
+  display: block;
+  height: 90vh;
+  width: 20%;
+  min-width: 20%;
+  border-radius: 20px 0px 0px 20px;
+
+}
+div#side-bar > a{
+ position: absolute;
+ top:90%;
+ left:25%;
+ font-size: 70%;
+ background-color: #a0ba7a;
+ color: black;
+ padding: 10px;
+ border-radius: 15px;
+
+
+}
+div#side-bar > h3{
+  position: absolute;
+  font-size: 80%;
+  background-color: #a0ba7a;
+  border-color: #7c8169;
+  top:10%;
+  left:15%;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0px 0px  2px rgba(0, 0, 0, 0.437);
+  
+ }
+div#listaTarefas{
+  display: block;
+  position: relative;
+  left: 20%;
+  width: 80%;
+  height: 50%;
+  background-color: rgba(203, 203, 203, 0.6);
+  border-radius: 0px 20px 0px 0px;
+}
+div#novaTarefa{
+  display: block;
+  position: absolute;
+  left: 20%;
+  width: 80%;
+  
+  height: 100%;
+  background-color: rgba(203, 203, 203, 0.6);
+  border-radius: 0px 20px 20px 0px;
+}
+
+div#detalhe{
+  display: block;
+  position: relative;
+  width: 80%;
+  height: 50%;
+  left: 20%;
+  background-color: rgba(203, 203, 203, 0.6);
+  box-shadow: 0px 0px  2px rgba(0, 0, 0, 0.514);
+  border-radius: 0px 0px 20px 0px;
+}
+div#tarefas-header, div#detalhe-header{
+  padding: 15px;
+  border-top:0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 1px;
+  border-style: double;
+  border-color:black;
+}
+input#btnNovaTarefa[type=submit], input#btnPgInic[type=submit], input#btnAddTask[type=submit]{
+  position: absolute;
+ top:50%;
+ left:25%;
+ font-size: 70%;
+ background-color: #a0ba7a;
+ color: black;
+ padding: 10px;
+ border-radius: 15px;
+ 
+}
+input#btnAddTask[type=submit]{
+  top:75%;
+  
+}
+#idnewTask{
+  display: block;
+  line-height: 30px;
+  width: 50%;
+  padding: 30px;
+  
+
+}
+#idnewDesc{
+  display: block;
+  line-height: 40px;
+  padding: 30px;
+
+}
