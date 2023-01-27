@@ -10,16 +10,22 @@
   --cor1:#000000;
 }
 
-body {
+body{
   background-color: #f2f2f2;
   height: 100vh;
   width: 100vw;
 }
 
-main {
+main{
  position: relative;
  height: 100vh;
   width: 100vw;
+}
+#msgAlerta{
+background-color: rgba(255, 255, 0, 0.293);
+font-size: 0.7em;
+text-align: center;
+display: none;
 }
 
 section#Login{
@@ -29,11 +35,11 @@ section#Login{
   transform:translate(-50%, -50%);
   background-color: white;
   width: 240px;
-  height: 500px;
+  height: 450px;
   border-radius: 20px;
   box-shadow: 0px 0px  10px rgba(0, 0, 0, 0.649);
   overflow: hidden;
-  transition: widht .5s, height .5s;
+  transition: width .5s, height .5s;
   transition-timing-function: ease;
 
 }
@@ -110,6 +116,7 @@ div#side-bar > a{
  top:90%;
  left:25%;
  font-size: 70%;
+ font-weight: bolder;
  background-color: #a0ba7a;
  color: black;
  padding: 10px;
@@ -148,6 +155,10 @@ div#novaTarefa{
   background-color: rgba(203, 203, 203, 0.6);
   border-radius: 0px 20px 20px 0px;
 }
+#mostradorTarefas{
+  padding: 20px ;
+  margin-left: 10px;
+}
 
 div#detalhe{
   display: block;
@@ -168,29 +179,56 @@ div#tarefas-header, div#detalhe-header{
   border-style: double;
   border-color:black;
 }
-input#btnNovaTarefa[type=submit], input#btnPgInic[type=submit], input#btnAddTask[type=submit]{
+
+input#btnNovaTarefa, input#btnPgInic, input#btnAddTask{
   position: absolute;
  top:50%;
  left:25%;
- font-size: 70%;
+ font-size: 0.75em;
  background-color: #a0ba7a;
  color: black;
  padding: 10px;
  border-radius: 15px;
  
 }
-input#btnAddTask[type=submit]{
+input#btnAddTask{
   top:75%;
-  
 }
+
+input#btnPgInic{
+left: 10%;
+width: 120px;
+height: 37px;
+text-align: center;
+font-weight: bolder;
+}
+
+input#btnNovaTarefa{
+left: 10%;
+width: 150px;
+height: 37px;
+text-align: center;
+font-weight: bolder; 
+}
+
 #idnewTask{
   display: block;
   line-height: 30px;
   width: 50%;
   padding: 30px;
-  
+}  
+
+#mensagemErro{
+text-align: center;
+background-color: rgba(255, 255, 0, 0.293);
+margin-top:10px ;
+font-size: 1em;
+padding:0px 3x ;
+display: none;
 
 }
+
+
 #idnewDesc{
   display: block;
   line-height: 40px;

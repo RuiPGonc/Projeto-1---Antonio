@@ -6,18 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="Social-Media-Icons-Glossy-Social-HTML-3.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
     <title>Home Page - Agenda Utils</title>
+
 </head>
-<body onload="recive()">
+<body>
     <main id="HomePage">
         <div id="side-bar">
-            <h3>NomeLogado</h2>
-            <input type="submit" id="btnNovaTarefa" value="Nova Tarefa">
+            <h3 id ="nomeLogado">NomeLogado</h3>
+            <input type="button" id="btnNovaTarefa" onclick="irAdicionarTarefa()" value="Nova Tarefa">
             <a href="index.html">Logout</a>
         </div>
         <div id="listaTarefas">
             <div id="tarefas-header">
                 <h3 class="tarefas-header">Tarefas</h3>              
+            </div>
+            <div id="mostradorTarefas">
+                
+<!-- div criada para mostrar a lsita de tarefas-->
             </div>
         </div>
         <div id="detalhe">
@@ -28,11 +34,6 @@
 
     </main>
 
-    <script type="text/javascript">
-        function receive(){
-        username = localStorage.getItem("nome");
-        }
-         </script>
       
 </body>
 </html>

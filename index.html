@@ -8,11 +8,15 @@
     <link rel="shortcut icon" href="Social-Media-Icons-Glossy-Social-HTML-3.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="media-query.css">
+    <script src="main.js"></script>
 
 </head>
 
     <body>
         <main>
+            <div id="msgAlerta">
+                <p>Por favor, preencha todos os campos antes de prosseguir!</p>
+            </div>
             <section id="Login">
                 <div id="imagem">
                     <!--Div criada para colocar a imagem do login dentro-->
@@ -20,7 +24,7 @@
                 <div id="divFormulario">
                     <h1>Agenda Utils</h1> 
                     <p>Seja bem-vindo(a)! Faça login para entrar na sua conta.</p>
-                    <form autocomplete="off" method="post"> <!--Post confere alguma segurança(pouca) aos dados introduzidos. Com este método a informação não passa dentro do URL-->
+                    <form method="post" > <!--Post confere alguma segurança(pouca) aos dados introduzidos. Com este método a informação não passa dentro do URL-->
                         
                         <label class="txtLogin" for="username">Username:</label>
                         <input type="text" id="username" name="username" required placeholder="nome do utilizador...">
@@ -28,24 +32,11 @@
                         <label class="txtLogin" for="password">Password:</label>
                         <input type="password" id="password" name="password" required placeholder="introduza a password...">
                         <br><br>
-                        <input type="submit" id="btnLogin" onclick="send()" value="Login">
+
+                        <input type="button" id="btnLogin" onclick="send()" value="Login">
                     </form> 
                 </div>
-
             </section>
         </main>
-        <script src="main.js"></script>
-        
-        <script type="text/javascript">
-           function send(){
-         //       var input = document.querySelector("#username");
-          //      var user= input.value;
-          //      window.alert(user);
-//                localStorage.setItem("username","user");
-  //          window.open("homePage.html","_self")
-            }
-             </script>
-           
-
     </body>
 </html>

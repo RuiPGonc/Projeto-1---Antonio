@@ -7,13 +7,14 @@
     <title> Adicionar Nova Tarefa</title>
     <link rel="shortcut icon" href="Social-Media-Icons-Glossy-Social-HTML-3.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
     <title>Home Page - Agenda Utils</title>
 </head>
 <body>
     <main id="NewTask">
         <div id="side-bar">
-            <h3>NomeLogado</h2>
-            <input type="submit" id="btnPgInic" value="Página Inicial">
+            <h3 id="nomeLogado">NomeLogado</h3>
+            <input type="button" id="btnPgInic" onclick="irHomePage()" value="Página Inicial">
             <a href="index.html">Logout</a>
         </div>
         
@@ -22,6 +23,9 @@
                 <h3 class="tarefas-header">Adicionar Nova Tarefa</h3>    
             </div>  
            <form method="post" id="formNweTask">
+               <div id="mensagemErro">
+                <p >Alerta! Não é possivel submeter uma nova tarefa sem preencher os campos "Nome da tarefa" e "Descrição"!</p>
+               </div>
                 <div id="idnewTask">
                     <label class="txtNewTask" for="nameTask">Nome da Tarefa:</label>
                     <input type="text" id="nameTask" name="nameTask" required placeholder="Atribua um nome à tarefa...">
@@ -35,7 +39,7 @@
                 </div>
                 <br>
                 <div>
-                    <input type="submit" id="btnAddTask" value="Adicionar Tarefa">
+                    <input type="button" id="btnAddTask" onclick="validarFormularioNovaTarefa()" value="Adicionar Tarefa">
                 </div>
             </form>
         </div>
