@@ -23,7 +23,7 @@
                 <h3 class="tarefas-header">Adicionar Nova Tarefa</h3>    
             </div>  
            <form method="post" id="formNweTask">
-               <div id="mensagemErro">
+               <div id="mensagemErro" onclick="escondeError()">
                 <p >Alerta! Não é possivel submeter uma nova tarefa sem preencher os campos "Nome da tarefa" e "Descrição"!</p>
                </div>
                 <div id="idnewTask">
@@ -39,7 +39,7 @@
                 </div>
                 <br>
                 <div>
-                    <input type="button" id="btnAddTask" onclick="validarFormularioNovaTarefa()" value="Adicionar Tarefa">
+                    <input type="button" id="btnAddTask" onclick="criarNovaTarefa()" value="Adicionar Tarefa">
                 </div>
             </form>
         </div>
