@@ -31,10 +31,69 @@ Ecrãs grandes: acima de 1200px
         margin-bottom: 5px;
         text-align: center;
       }
+
+      div#side-bar > h3 {
+        position: absolute;
+        font-size: 0.75em;
+        background-color: #a0ba7a;
+        border-color: #7c8169;
+        width: 135px;
+        height: 35px;
+        margin-left: 10px;  
+        margin-right: 5px;
+        font-size: 0.8em;
+        font-weight: bolder;
+        top: 10%;
+        left: 3%;
+        padding: 4px;
+        border-radius: 15px;
+        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.437);
+        text-align: center;
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+   
+    }
+
+    div#side-bar > a {
+    position: absolute;
+    width: 125px;
+    top: 90%;
+    left: 12%;
+    font-size: 0.8em;
+    font-weight: bolder;
+    background-color: #a0ba7a;
+    color: black;
+    padding: 10px;
+    border-radius: 15px;
+    text-align: center;
+    }
+
+
+    #nameTask {
+        border: 1px solid black;
+        border-radius: 2px;
+        width: 500px;   
+        height: 30px;
+      }
+
+
+    #descricao {
+        border: 1px solid black;
+        border-radius: 2px;
+        width: 500px;
+        height: 40px;
+    }   
+    
+    input#btnAddTask {  
+        margin-left: 200px;
+        margin-block-start: auto;
+   }   
+  
    
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 992px) and (max-width: 1200px) {
     section#Login {
         width: 950px;
     }
@@ -59,9 +118,155 @@ Ecrãs grandes: acima de 1200px
     div#divFormulario > p {
         font-size: 1.2em;
       }
+
+
+    div#side-bar > h3 {
+        position: absolute;
+        font-size: 0.75em;
+        background-color: #a0ba7a;
+        border-color: #7c8169;
+        width: 145px;
+        height: 35px;
+        margin-left: 25px;
+        margin-right: 5px;
+        font-size: 0.8em;
+        font-weight: bolder;
+        top: 10%;
+        left: 3%;
+        padding: 4px;
+        border-radius: 15px;
+        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.437);
+        text-align: center;
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+   
+    }
+
+    div#side-bar > a {
+    position: absolute;
+    width: 135px;
+    top: 90%;
+    left: 12%;
+    margin-left: 12px;
+    font-size: 0.8em;
+    font-weight: bolder;
+    background-color: #a0ba7a;
+    color: black;
+    padding: 10px;
+    border-radius: 15px;
+    text-align: center;
+    }
+
+
+    #nameTask {
+        border: 1px solid black;
+        border-radius: 2px;
+        width: 500px;   
+        height: 30px;
+      }
+
+
+    #descricao {
+        border: 1px solid black;
+        border-radius: 2px;
+        width: 500px;
+        height: 40px;
+    }  
+
+    input#btnAddTask {  
+        margin-left: 200px;
+        margin-block-start: auto;
+   }   
+
 }
 
+    @media screen and (min-width: 1200px) {
+        section#Login {
+            width: 950px;
+        }
+    
+        section#Login > div#imagem {
+            float: right;
+            width: 50%;
+            height: 100%;
+        }
+        
+        section#Login > div#divFormulario {
+            float: left;
+            width: 50%;
+            line-height: 55px;
+            padding: 5% 5% 0% 5%;
+        }
+    
+        div#divFormulario > h1 {
+            font-size: 2.0em;
+        }
+    
+        div#divFormulario > p {
+            font-size: 1.2em;
+          }
+    
+    
+        div#side-bar > h3 {
+            position: absolute;
+            font-size: 0.75em;
+            background-color: #a0ba7a;
+            border-color: #7c8169;
+            width: 165px;
+            height: 35px;
+            margin-left: 45px;
+            margin-right: 5px;
+            font-size: 0.8em;
+            font-weight: bolder;
+            top: 10%;
+            left: 3%;
+            padding: 4px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.437);
+            text-align: center;
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+       
+        }
+    
+        div#side-bar > a {
+        position: absolute;
+        width: 155px;
+        top: 90%;
+        left: 12%;
+        margin-left: 25px;
+        font-size: 0.8em;
+        font-weight: bolder;
+        background-color: #a0ba7a;
+        color: black;
+        padding: 10px;
+        border-radius: 15px;
+        text-align: center;
+        }
+    
+    
+        #nameTask {
+            border: 1px solid black;
+            border-radius: 2px;
+            width: 500px;   
+            height: 30px;
+          }
+    
+    
+        #descricao {
+            border: 1px solid black;
+            border-radius: 2px;
+            width: 500px;
+            height: 40px;
+        }  
+
+        input#btnAddTask {  
+             margin-left: 200px;
+             margin-block-start: auto;
+        }        
 
 
-
+    }
 

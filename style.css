@@ -64,6 +64,7 @@ section#Login > div#divFormulario {
   position: relative;
   height: 90vh;
   width: 90vw;
+  background-color: white;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -129,6 +130,7 @@ div#side-bar > a {
   left: 12%;
   font-size: 0.6em;
   font-weight: bolder;
+  margin-left: 8px;
   background-color: #a0ba7a;
   color: black;
   padding: 10px;
@@ -141,7 +143,7 @@ div#side-bar > h3 {
   background-color: #a0ba7a;
   border-color: #7c8169;
   margin-left: 5px;
-  margin-right: 5px;
+  margin-right: 7px;
   top: 10%;
   left: 3%;
   padding: 4px;
@@ -225,7 +227,6 @@ input#btnAddTask {
   cursor: pointer;
   border: 1px solid black;
   box-shadow: 1px 1px #add8e6; 
-
 }
 
 .riscado {
@@ -274,8 +275,7 @@ input#btnNovaTarefa {
   border: 1px solid black;
   border-radius: 2px;
   width: 220px;
-  height: 180px;
-
+  height: 40px;
 }
 
 #nameTask {

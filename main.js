@@ -73,6 +73,7 @@ function atribuirId() {
   let iD = listaTarefas.length + new Date().getTime();
   return iD++;
 }
+
 if(document.URL.includes("homePage.html")){
 window.addEventListener("load", (event) => {
   // obter o user from localstorage - browser
