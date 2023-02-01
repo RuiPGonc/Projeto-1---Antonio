@@ -18,7 +18,7 @@ function send() {
       localStorage.setItem("listaTarefas", JSON.stringify([]));
     }
   } else {
-    document.getElementById("msgAlerta").style.display = "block"; //torna a mensagemd e erro visivel
+    document.getElementById("msgPreenchimento").style.display = "block"; //torna a mensagemd e erro visivel
   }
 }
 
@@ -46,7 +46,8 @@ function criarNovaTarefa() {
     novaTarefa.id = atribuirId();
     novaTarefa.nome = nome_input;
     novaTarefa.descricao = descr_input;
-    novaTarefa.realizada = false;
+    //novaTarefa.realizada = false;
+    novaTarefa.idConclusao=0;
 
     //traz a lista de tarefas que já existe
     let listaTarefas = JSON.parse(localStorage.getItem("listaTarefas"));
@@ -72,7 +73,7 @@ function atribuirId() {
   let iD = listaTarefas.length + new Date().getTime();
   return iD++;
 }
-
+if(document.URL.includes("homePage.html")){
 window.addEventListener("load", (event) => {
   // obter o user from localstorage - browser
   const utilizador = localStorage.getItem("nome");
@@ -81,17 +82,33 @@ window.addEventListener("load", (event) => {
   var userLogado = document.getElementById("nomeLogado");
   if (userLogado) userLogado.innerHTML = "Bem-Vindo!\n" + utilizador;
 
-  // chamar a atualizaçao aqui!!!!!!!!!!!!!!!!!!
+
   atualizarLista();
   gerirClickNaTarefa();
-});
+})
+};
 
 const atualizarLista = () => {
   limparTarefas();
+   
+  //ordenar o array para que as tarefas realizadas ocupem o final da lista
+   listaTarefas.sort(function(x,y) {
+    
+    a=x.idConclusao;
+    b=y.idConclusao;
+
+    return a==b ? 0: a>b? 1: -1; // a=b? se true devolve 0, else testa se a>b. se true devolve 1, else -1
+  });
+ 
+ 
+ 
   //a linha abaixo envia cada item a lista de tarefas para o criarItem, para ser impresso no ecrã
   for (let i = 0; i < listaTarefas.length; i++) {
     criarItem(listaTarefas[i]);
   }
+
+  //console.log(listaTarefas);
+  
 };
 
 const limparTarefas = () => {
@@ -106,7 +123,7 @@ const limparTarefas = () => {
 const criarItem = (tarefa) => {
   const tarefaRoot = document.createElement("div")
 
-  tarefaRoot.className = "lista-tarefa-item"
+  tarefaRoot.className = "lista-tarefa-item";
 
   const item = document.createElement("button");
   item.textContent = tarefa.nome;
@@ -114,7 +131,7 @@ const criarItem = (tarefa) => {
   tarefaRoot.setAttribute("data-id", tarefa.id);
 
 
-  if (tarefa.realizada) {
+  if (tarefa.idConclusao) {
     item.classList.add("riscado");
     tarefaRoot.classList.add("removida")
   }
@@ -124,24 +141,6 @@ const criarItem = (tarefa) => {
   //coloca o item, com o respetivo cod HTML dentro da div que vai mostrar a lista
   document.getElementById("div_ListaTarefas").appendChild(tarefaRoot);
 };
-
-
-
-/*para ver/editar e remover tarefas -> falta acabar
-
-//quando o user clica na checkbox a tarefa passa a concluída
-
-
-const clickedItem = (evento) => {
- //para ver em que sitio o utilizador carregou
-  const elemento = evento.target;
-  if(elemento.type === 'button'){
-    const indice=
-    removerItem()
-  }
-
-}
-*/
 
 //para ver a descrição na div "Detalhe"
 const verDescricao = (id_tarefa) => {
@@ -176,6 +175,7 @@ const gerirClickNaTarefa = () => {
 
 const atualizarDetalhe = () => {
   limparDetalhes();
+  document.getElementById("msgConcluida").style.display = "none";
   const tarefa = listaTarefas.find((tarefa) => tarefa.id === tarefaAtivaId);
   const div_DetalheTarefas = document.getElementById("div_DetalheTarefas");
 
@@ -184,18 +184,19 @@ const atualizarDetalhe = () => {
     <form id="editarTarefa">
       <div class="form-item">
         <label  for="name">Nome:</label>
-        <input type="texto" placeholder="Nome" id="nome" value="${tarefa.nome}" />
+        <input type="texto"placeholder="Nome" id="nome" value="${tarefa.nome}" />
       </div>
       <div class="form-item">
         <label for="descricao">Descriçáo:</label>
-        <textarea placeholder="Descricao" id="descricao">${
+        <textarea placeholder="Descricao"  cols="5" rows="5" 
+         id="descricao">${
           tarefa.descricao
         }</textarea>
       </div>
       <div class="form-item">
          <label  for="realizada">Estado:</label>
           <input type="checkbox" id="realizada" ${
-            tarefa.realizada ? "checked" : ""
+            tarefa.idConclusao ? "checked" : ""
           } />
       </div>
       <div>
@@ -204,6 +205,18 @@ const atualizarDetalhe = () => {
       </div>
     </form>
     `;
+/*    
+   
+    document
+      .getElementById("btnCancelar")
+      .classList.add("format_botoesDetalhe");
+      
+      document
+      .getElementById("btnEditar")
+      .classList.add("format_botoesDetalhe");
+
+*/
+
     document
       .getElementById("btnCancelar")
       .addEventListener("click", abortarEdicao);
@@ -215,12 +228,19 @@ const atualizarDetalhe = () => {
       const novaDescricao = document.getElementById("descricao").value;
       const novaRealizada = document.getElementById("realizada").checked;
 
+      if(tarefa.idConclusao==0 && novaRealizada!==tarefa.idConclusao){
+        editarTarefa({
+          nome: novoNome,
+          descricao: novaDescricao,
+          idConclusao:atribuirId() })
+      }else{
       editarTarefa({
         nome: novoNome,
         descricao: novaDescricao,
-        realizada: novaRealizada,
-      });
+        idConclusao: novaRealizada })
+      };
     });
+  
   } else {
     const nome = document.createElement("h4");
     nome.setAttribute("id", "nomeTarefa");
@@ -228,14 +248,15 @@ const atualizarDetalhe = () => {
 
     const descricao = document.createElement("p");
     descricao.setAttribute("id", "descricaoTarefa");
-    descricao.classList.add("sitacao")
+    descricao.classList.add("citacao")
     descricao.textContent = tarefa.descricao;
 
     const estado = document.createElement("p");
     estado.setAttribute("id", "estadoTarefa");
     const estadoSpan = document.createElement("span")
     estadoSpan.classList.add("estado-flag");
-    if (tarefa.realizada) {
+    
+    if (tarefa.idConclusao) {
       estadoSpan.textContent = "Concluida";
       estadoSpan.classList.add("estado-flag-concluida");
     } else {
@@ -248,30 +269,43 @@ const atualizarDetalhe = () => {
 
    // estado.textContent = tarefa.realizada ? "Concluida" : "Por concluir";
 
+
     const btnEditar = document.createElement("button");
     btnEditar.textContent = "Editar";
+    btnEditar.classList.add("format_botoesDetalhe");
     btnEditar.addEventListener("click", () => {
       edicaoAtiva = true;
       atualizarDetalhe();
     });
 
+    
     const btnConcluir = document.createElement("button");
+    btnConcluir.setAttribute("id","btnConcl")
     btnConcluir.textContent = "Concluir Tarefa";
-    btnConcluir.addEventListener("click", () => {
-      editarTarefa({
-        realizada: true,
-      });
+    btnConcluir.classList.add("format_botoesDetalhe");
+    
+    if(tarefa.idConclusao==0){
+      btnConcluir.addEventListener("click", () => {
+        editarTarefa({idConclusao:new Date().getTime()});
+      })
+    }else{
+      btnConcluir.addEventListener("click",()=>{ 
+        document.getElementById("msgConcluida").style.display = "block";
+
     });
+    }
 
     div_DetalheTarefas.append(nome, descricao, estado, btnEditar, btnConcluir);
   }
 
+
   const btnRemover = document.createElement("button");
   btnRemover.textContent = "Remover";
   btnRemover.addEventListener("click", removerTarefa);
-
+btnRemover.classList.add("format_botoesDetalhe");
   div_DetalheTarefas.append(btnRemover);
 };
+
 
 const limparDetalhes = () => {
   const div_DetalheTarefas = document.getElementById("div_DetalheTarefas");
@@ -316,13 +350,5 @@ function editarTarefa(novaTarefa = {}) {
 }
 
 {
-  /* 
- <form id="editarTarefa">
-    <input type="texto" placeholder="Nome" id="nome" />
-    <textarea placeholder="Descricao" id="descricao">
-        Descricao
-    </textarea>
-    <input type="checkbox" checked id="realizada" />
-  </form>
-*/
+
 }

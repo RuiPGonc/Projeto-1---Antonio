@@ -14,15 +14,13 @@
     <title>Home Page - Agenda Utils</title>
   </head>
   <body>
+    <div class="msgAlerta" id="msgConcluida">
+      <p>A tarefa selecionada já se encontra concluida!</p>
+  </div>
     <main id="HomePage">
       <div id="side-bar">
         <h3 id="nomeLogado">NomeLogado</h3>
-        <input
-          type="button"
-          id="btnNovaTarefa"
-          onclick="irAdicionarTarefa()"
-          value="Nova Tarefa"
-        />
+        <h3 id="btnNovaTarefa" onclick="irAdicionarTarefa()" value="Nova Tarefa" >Nova Tarefa</h3>
         <a href="index.html">Logout</a>
       </div>
       <div id="listaTarefas">

@@ -14,7 +14,7 @@
     <main id="NewTask">
         <div id="side-bar">
             <h3 id="nomeLogado">NomeLogado</h3>
-            <input type="button" id="btnPgInic" onclick="irHomePage()" value="Página Inicial">
+            <h3 id="btnPgInic" onclick="irHomePage()" value="Página Inicial">Página Inicial</h3>
             <a href="index.html">Logout</a>
         </div>
         
@@ -24,17 +24,16 @@
             </div>  
            <form method="post" id="formNweTask">
                <div id="mensagemErro" onclick="escondeError()">
-                <p >Alerta! Não é possivel submeter uma nova tarefa sem preencher os campos "Nome da tarefa" e "Descrição"!</p>
                </div>
                 <div id="idnewTask">
                     <label class="txtNewTask" for="nameTask">Nome da Tarefa:</label>
-                    <input type="text" id="nameTask" name="nameTask" required placeholder="Atribua um nome à tarefa...">
+                    <input type="text" id="nameTask" name="nameTask" required placeholder="  Atribua um nome à tarefa...">
                     <br>
                 </div>
                 <div id="idnewDesc">
                     <label class="txtNewTask" for="descricao">Descrição:</label>
                     <br>
-                    <textarea name="descricao" id="descricao" cols="40" rows="10" required placeholder="Introduza uma descrição..."></textarea>
+                    <textarea name="descricao" id="descricao" cols="40" rows="10" required placeholder=" Introduza uma descrição..."></textarea>
                     <br>
                 </div>
                 <br>

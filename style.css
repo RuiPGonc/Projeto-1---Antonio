@@ -8,13 +8,16 @@
   border-style: none;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  --cor1: #000000;
 }
 
 body {
-  background-color: #f2f2f2;
+  background-color: #f7f7f762;
   height: 100vh;
   width: 100vw;
+}
+
+textarea {
+padding: 5px;
 }
 
 main {
@@ -22,7 +25,7 @@ main {
   height: 100vh;
   width: 100vw;
 }
-#msgAlerta {
+.msgAlerta {
   background-color: rgba(255, 255, 0, 0.293);
   font-size: 0.7em;
   text-align: center;
@@ -35,8 +38,8 @@ section#Login {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  width: 240px;
-  height: 450px;
+  width: 340px;
+  height: 35em;
   border-radius: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.649);
   overflow: hidden;
@@ -48,11 +51,13 @@ section#Login > div#imagem {
   background: blue url(Imagens/imagemLogin5.jpg) no-repeat;
   background-size: cover;
   background-position: left top;
-  height: 200px;
+  height: 15em;
 }
 section#Login > div#divFormulario {
   display: block;
   padding: 10px;
+  line-height: 25px;
+  font-size: 17px;
 }
 #HomePage,
 #NewTask {
@@ -69,31 +74,39 @@ section#Login > div#divFormulario {
 div#divFormulario > h1 {
   text-align: center;
   margin-bottom: 10px;
+  font-style: italic;
+  font-size: 30px;
+  color:#71815a
 }
 
 div#divFormulario > p {
   font-size: 0.8em;
   margin-bottom: 5px;
+  text-align: center;
 }
 
-input#btnLogin[type="submit"] {
+input#btnLogin[type="button"] {
   display: block;
   font-size: 1em;
   font-weight: bolder;
   width: 100%;
-  height: 40px;
-  background-color: rgb(220, 217, 217);
+  height: 50px;
+  background-color: rgba(238, 238, 197, 0.792);
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  
+}
+input#username, input#password{
+  background-color: #f8ffde2b;
 }
 
-input#btnLogin[type="submit"]:hover {
+input#btnLogin[type="button"]:hover {
   background-color: rgb(142, 140, 140);
 }
 
 label.txtLogin {
-  background-color: rgb(220, 217, 217);
+  background-color: rgb(255, 252, 252);
   display: block;
   width: 100%;
   height: 20px;
@@ -107,31 +120,34 @@ div#side-bar {
   background-size: cover;
   display: block;
   height: 90vh;
-  width: 20%;
   min-width: 20%;
   border-radius: 20px 0px 0px 20px;
 }
 div#side-bar > a {
   position: absolute;
   top: 90%;
-  left: 25%;
-  font-size: 70%;
+  left: 12%;
+  font-size: 0.6em;
   font-weight: bolder;
   background-color: #a0ba7a;
   color: black;
   padding: 10px;
   border-radius: 15px;
+  text-align: center;
 }
 div#side-bar > h3 {
   position: absolute;
-  font-size: 80%;
+  font-size: 0.75em;
   background-color: #a0ba7a;
   border-color: #7c8169;
+  margin-left: 5px;
+  margin-right: 5px;
   top: 10%;
-  left: 15%;
-  padding: 10px;
+  left: 3%;
+  padding: 4px;
   border-radius: 15px;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.437);
+  text-align: center;
 }
 div#listaTarefas {
   display: block;
@@ -139,17 +155,18 @@ div#listaTarefas {
   left: 20%;
   width: 80%;
   height: 50%;
-  background-color: rgba(203, 203, 203, 0.6);
+  background-color: rgba(234, 234, 234, 0.6);
   border-radius: 0px 20px 0px 0px;
 }
 div#novaTarefa {
   display: block;
   position: absolute;
+  background-color: rgba(234, 234, 234, 0.6);
   left: 20%;
   width: 80%;
 
   height: 100%;
-  background-color: rgba(203, 203, 203, 0.6);
+  background-color: rgba(234, 234, 234, 0.6);
   border-radius: 0px 20px 20px 0px;
 }
 #div_ListaTarefas {
@@ -157,6 +174,7 @@ div#novaTarefa {
   margin-left: 10px;
   height: 70%;
   overflow: auto;
+  display: block;
 }
 
 div#detalhe {
@@ -165,7 +183,7 @@ div#detalhe {
   width: 80%;
   height: 50%;
   left: 20%;
-  background-color: rgba(203, 203, 203, 0.6);
+  background-color: rgba(234, 234, 234, 0.6);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.514);
   border-radius: 0px 0px 20px 0px;
 }
@@ -180,17 +198,34 @@ div#detalhe-header {
   border-color: black;
 }
 
-input#btnNovaTarefa,
-input#btnPgInic,
-input#btnAddTask {
+input#btnNovaTarefa {
   position: absolute;
   top: 50%;
-  left: 25%;
+  left: 10%;
   font-size: 0.75em;
+  word-wrap: break-word !important;
+  word-break: break-all !important;
   background-color: #a0ba7a;
   color: black;
   padding: 10px;
   border-radius: 15px;
+  display: flex;
+}
+
+input#btnAddTask {
+  position: absolute;
+  margin-top: 30px;
+  margin-left: 70px;
+  background-color: #a6dced;
+  font-weight: bolder;
+  color: black;
+  padding: 10px;
+  border-radius: 15px;
+  display: flex;
+  cursor: pointer;
+  border: 1px solid black;
+  box-shadow: 1px 1px #add8e6; 
+
 }
 
 .riscado {
@@ -201,18 +236,14 @@ input#btnAddTask {
   top: 75%;
 }
 
-input#btnPgInic {
-  left: 10%;
-  width: 120px;
-  height: 37px;
-  text-align: center;
-  font-weight: bolder;
+div#side-bar > h3#btnPgInic, div#side-bar > h3#btnNovaTarefa {
+  display: relative;
+  top: 50%;
 }
 
+
 input#btnNovaTarefa {
-  left: 10%;
-  width: 150px;
-  height: 37px;
+  left:10%;
   text-align: center;
   font-weight: bolder;
 }
@@ -237,6 +268,21 @@ input#btnNovaTarefa {
   display: block;
   line-height: 40px;
   padding: 30px;
+}
+
+#descricao {
+  border: 1px solid black;
+  border-radius: 2px;
+  width: 220px;
+  height: 180px;
+
+}
+
+#nameTask {
+  border: 1px solid black;
+  border-radius: 2px;
+  width: 200px;
+  height: 30px;
 }
 
 .lista-tarefa-item {
@@ -264,6 +310,9 @@ input#btnNovaTarefa {
 #div_DetalheTarefas{
   padding-left: 20px;
   padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+text-align: center;
 }
 
 #div_DetalheTarefas p {
@@ -271,17 +320,20 @@ input#btnNovaTarefa {
   margin-bottom: 10px;
 }
 
-#div_DetalheTarefas button {
+.format_botoesDetalhe, #btnEditar, #btnCancelar{
   border: 4px;
   margin: 10px 5px 10px 5px;
   padding: 7px 10px 7px 10px;
-  /*background-color: #A0BA7B;*/
   font-weight: bold;
-  
-  background-color: #a0b3e8;
+  background-color: rgba(238, 238, 197, 0.792);
   border-radius: 2em;
-}
+  display: block;
+  line-height: 10px;
+  border:0px;
+  text-align: center;
+  margin: 5px;
 
+}
 
 .estado-flag {
   margin-top: 20px;
@@ -298,7 +350,7 @@ input#btnNovaTarefa {
   background: #c45500;
 }
 
-.sitacao {
+.citacao {
   font-style: italic;
 }
 
@@ -310,3 +362,7 @@ input#btnNovaTarefa {
   font-size: smaller;
   vertical-align: top;
 }
+
+
+
+

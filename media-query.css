@@ -23,8 +23,14 @@ Ecrãs grandes: acima de 1200px
     section#Login > div#divFormulario {
         float: right;
         width: 70%;
+        line-height: 55px;
+        padding: 10% 5% 0% 5%;
     }
-
+    div#divFormulario > p {
+        font-size: 0.75em;
+        margin-bottom: 5px;
+        text-align: center;
+      }
    
 }
 
@@ -42,6 +48,8 @@ Ecrãs grandes: acima de 1200px
     section#Login > div#divFormulario {
         float: left;
         width: 50%;
+        line-height: 55px;
+        padding: 5% 5% 0% 5%;
     }
 
     div#divFormulario > h1 {
