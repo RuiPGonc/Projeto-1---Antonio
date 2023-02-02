@@ -140,10 +140,7 @@ Ecrãs grandes: acima de 1200px
     margin-block-start: auto;
   }
 /*-----------------------------*/
-#tarefas {
-    display: flex;
-    width: 100%;
-  }
+
   #nomeLogado {
     margin-top: 20px;
     padding: 10px;
@@ -176,12 +173,21 @@ Ecrãs grandes: acima de 1200px
     border: 2px solid transparent;
     font-size: 1rem;
   }
+  #tarefas {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+  }
   #div_DetalheTarefas {
     padding: 20px;
     display: flex;
     flex-direction: column;
   }
- 
+
+  #btnAddTask {
+    margin-left: 30px;
+    width: 300px;
+  }
   .lista-tarefa-item:hover {
     background-color: #a9d36c;
   }

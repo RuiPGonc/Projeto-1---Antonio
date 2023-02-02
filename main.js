@@ -28,8 +28,8 @@ function irAdicionarTarefa() {
 }
 function irHomePage(event) {
   console.log("Aqui há gato!!")
-  event.preventDefault;
-  //window.open("homePage.html", "_self");
+  //event.preventDefault;
+  window.open("homePage.html", "_self");
 }
 
 /**
