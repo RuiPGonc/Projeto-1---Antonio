@@ -17,27 +17,40 @@
   <body>
     <div class="msgAlerta" id="msgConcluida">
       <p>A tarefa selecionada já se encontra concluida!</p>
-  </div>
+    </div>
     <main id="HomePage">
       <div id="side-bar">
-        <h3 id="nomeLogado">NomeLogado</h3>
-        <h3 id="btnNovaTarefa" onclick="irAdicionarTarefa()" value="Nova Tarefa" >Nova Tarefa</h3>
-        <a href="index.html">Logout</a>
+        <div id="top">
+          <h3 id="nomeLogado">NomeLogado</h3>
+          <button
+            id="btnNovaTarefa"
+            onclick="irAdicionarTarefa()"
+            value="Nova Tarefa"
+            class="btn"
+          >
+            Nova Tarefa
+          </button>
+        </div>
+        <div id="bottom">
+          <a href="index.html" class="btn">Logout</a>
+        </div>
       </div>
-      <div id="listaTarefas">
-        <div id="tarefas-header">
-          <h3 class="tarefas-header">Tarefas</h3>
+      <div id="tarefas">
+        <div id="listaTarefas">
+          <div id="tarefas-header">
+            <h3 class="tarefas-header">Tarefas</h3>
+          </div>
+          <div id="div_ListaTarefas" class="class_listaTarefas">
+            <!-- div criada para mostrar a lista de tarefas-->
+          </div>
         </div>
-        <div id="div_ListaTarefas" class="class_listaTarefas">
-          <!-- div criada para mostrar a lista de tarefas-->
-        </div>
-      </div>
-      <div id="detalhe">
-        <div id="detalhe-header">
-          <h3 class="detalhe-header">Detalhe Tarefas</h3>
-        </div>
-        <div id="div_DetalheTarefas" class="class_DetalheTarefa">
-          <!-- div criada para mostrar a descrição da tarefa-->
+        <div id="detalhe">
+          <div id="detalhe-header">
+            <h3 class="detalhe-header">Detalhe Tarefas</h3>
+          </div>
+          <div id="div_DetalheTarefas" class="class_DetalheTarefa">
+            <!-- div criada para mostrar a descrição da tarefa-->
+          </div>
         </div>
       </div>
     </main>

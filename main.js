@@ -34,20 +34,27 @@ function irHomePage() {
  * Cria uma nova tarefa se os dados forem válidos
  */
 function criarNovaTarefa() {
+  event.preventDefault();
+
   var descr_input = document.getElementById("descricao").value;
   var nome_input = document.getElementById("nameTask").value;
 
-  console.log("Description: " + descr_input)
-  console.log("Nome: " + nome_input)
+  console.log("Description: " + descr_input);
+  console.log("Nome: " + nome_input);
 
-  if (descr_input && nome_input && descr_input.trim() !== "" && nome_input.trim() !== "") {
+  if (
+    descr_input &&
+    nome_input &&
+    descr_input.trim() !== "" &&
+    nome_input.trim() !== ""
+  ) {
     //criar um novo objeto "Tarefa"
     let novaTarefa = new Object();
     novaTarefa.id = atribuirId();
     novaTarefa.nome = nome_input;
     novaTarefa.descricao = descr_input;
     //novaTarefa.realizada = false;
-    novaTarefa.idConclusao=0;
+    novaTarefa.idConclusao = 0;
 
     //traz a lista de tarefas que já existe
     let listaTarefas = JSON.parse(localStorage.getItem("listaTarefas"));
@@ -55,11 +62,9 @@ function criarNovaTarefa() {
     listaTarefas.push(novaTarefa);
     // * Grava em loca storage - browser
     localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
-
     irHomePage();
   } else {
     document.getElementById("mensagemErro").style.display = "block";
-    
   }
 }
 
@@ -67,49 +72,59 @@ function escondeError() {
   document.getElementById("mensagemErro").style.display = "none";
 }
 
-
 function atribuirId() {
   let listaTarefas = JSON.parse(localStorage.getItem("listaTarefas"));
   let iD = listaTarefas.length + new Date().getTime();
   return iD++;
 }
 
-if(document.URL.includes("homePage.html")){
-window.addEventListener("load", (event) => {
-  // obter o user from localstorage - browser
-  const utilizador = localStorage.getItem("nome");
+const paginasAutenticadas = ["/homePage.html", "/newTask.html"];
 
-  //console.log(utilizador.value); // para imprimir na consola
-  var userLogado = document.getElementById("nomeLogado");
-  if (userLogado) userLogado.innerHTML = "Bem-Vindo!\n" + utilizador;
+if (paginasAutenticadas.includes(window.location.pathname)) {
+  window.addEventListener("load", (event) => {
+    // obter o user from localstorage - browser
+    const utilizador = localStorage.getItem("nome");
 
+    //console.log(utilizador.value); // para imprimir na consola
+    var userLogado = document.getElementById("nomeLogado");
+    if (userLogado) userLogado.innerHTML = "Bem-Vindo!\n" + utilizador;
 
-  atualizarLista();
-  gerirClickNaTarefa();
-})
+    if (window.location.pathname === "/homePage.html") {
+      atualizarLista();
+      gerirClickNaTarefa();
+    }
+
+    if (window.location.pathname === "/newTask.html") {
+      gerirClickCriarTarefa();
+    }
+  });
+}
+
+const gerirClickCriarTarefa = () => {
+  const form = document.getElementById("formNewTask");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    criarNovaTarefa();
+  });
 };
 
 const atualizarLista = () => {
   limparTarefas();
-   
-  //ordenar o array para que as tarefas realizadas ocupem o final da lista
-   listaTarefas.sort(function(x,y) {
-    
-    a=x.idConclusao;
-    b=y.idConclusao;
 
-    return a==b ? 0: a>b? 1: -1; // a=b? se true devolve 0, else testa se a>b. se true devolve 1, else -1
+  //ordenar o array para que as tarefas realizadas ocupem o final da lista
+  listaTarefas.sort(function (x, y) {
+    a = x.idConclusao;
+    b = y.idConclusao;
+
+    return a == b ? 0 : a > b ? 1 : -1; // a=b? se true devolve 0, else testa se a>b. se true devolve 1, else -1
   });
- 
- 
- 
+
   //a linha abaixo envia cada item a lista de tarefas para o criarItem, para ser impresso no ecrã
   for (let i = 0; i < listaTarefas.length; i++) {
     criarItem(listaTarefas[i]);
   }
 
   //console.log(listaTarefas);
-  
 };
 
 const limparTarefas = () => {
@@ -122,25 +137,17 @@ const limparTarefas = () => {
 
 //criar tarefas para serem mostradas na lista
 const criarItem = (tarefa) => {
-  const tarefaRoot = document.createElement("div")
-
-  tarefaRoot.className = "lista-tarefa-item";
-
   const item = document.createElement("button");
   item.textContent = tarefa.nome;
   item.setAttribute("data-id", tarefa.id);
-  tarefaRoot.setAttribute("data-id", tarefa.id);
-
+  item.className = "lista-tarefa-item";
 
   if (tarefa.idConclusao) {
     item.classList.add("riscado");
-    tarefaRoot.classList.add("removida")
   }
 
-  tarefaRoot.appendChild(item)
-
   //coloca o item, com o respetivo cod HTML dentro da div que vai mostrar a lista
-  document.getElementById("div_ListaTarefas").appendChild(tarefaRoot);
+  document.getElementById("div_ListaTarefas").appendChild(item);
 };
 
 //para ver a descrição na div "Detalhe"
@@ -161,8 +168,6 @@ const gerirClickNaTarefa = () => {
     .getElementById("div_ListaTarefas")
     .addEventListener("click", (event) => {
       const elemento = event.target;
-
-      console.log(elemento);
 
       if (elemento.tagName === "BUTTON" || elemento.tagName === "DIV") {
         const tarefaClicadaId = elemento.getAttribute("data-id");
@@ -185,14 +190,14 @@ const atualizarDetalhe = () => {
     <form id="editarTarefa">
       <div class="form-item">
         <label  for="name">Nome:</label>
-        <input type="texto"placeholder="Nome" id="nome" value="${tarefa.nome}" />
+        <input type="texto"placeholder="Nome" id="nome" value="${
+          tarefa.nome
+        }" />
       </div>
       <div class="form-item">
         <label for="descricao">Descriçáo:</label>
-        <textarea placeholder="Descricao"  cols="5" rows="5" 
-         id="descricao">${
-          tarefa.descricao
-        }</textarea>
+        <textarea placeholder="Descricao" 
+         id="descricao">${tarefa.descricao}</textarea>
       </div>
       <div class="form-item">
          <label  for="realizada">Estado:</label>
@@ -201,22 +206,12 @@ const atualizarDetalhe = () => {
           } />
       </div>
       <div>
-          <button type="submit" id="btnEditar">Gravar</button>
-          <button id="btnCancelar">Cancelar</button>
+          <button type="submit" class="btn">Gravar</button>
+          <button class="btn">Cancelar</button>
       </div>
     </form>
     `;
-/*    
-   
-    document
-      .getElementById("btnCancelar")
-      .classList.add("format_botoesDetalhe");
-      
-      document
-      .getElementById("btnEditar")
-      .classList.add("format_botoesDetalhe");
 
-*/
 
     document
       .getElementById("btnCancelar")
@@ -229,19 +224,20 @@ const atualizarDetalhe = () => {
       const novaDescricao = document.getElementById("descricao").value;
       const novaRealizada = document.getElementById("realizada").checked;
 
-      if(tarefa.idConclusao==0 && novaRealizada!==tarefa.idConclusao){
+      if (tarefa.idConclusao == 0 && novaRealizada !== tarefa.idConclusao) {
         editarTarefa({
           nome: novoNome,
           descricao: novaDescricao,
-          idConclusao:atribuirId() })
-      }else{
-      editarTarefa({
-        nome: novoNome,
-        descricao: novaDescricao,
-        idConclusao: novaRealizada })
-      };
+          idConclusao: atribuirId(),
+        });
+      } else {
+        editarTarefa({
+          nome: novoNome,
+          descricao: novaDescricao,
+          idConclusao: novaRealizada,
+        });
+      }
     });
-  
   } else {
     const nome = document.createElement("h4");
     nome.setAttribute("id", "nomeTarefa");
@@ -249,64 +245,58 @@ const atualizarDetalhe = () => {
 
     const descricao = document.createElement("p");
     descricao.setAttribute("id", "descricaoTarefa");
-    descricao.classList.add("citacao")
+    descricao.classList.add("citacao");
     descricao.textContent = tarefa.descricao;
 
     const estado = document.createElement("p");
     estado.setAttribute("id", "estadoTarefa");
-    const estadoSpan = document.createElement("span")
+    const estadoSpan = document.createElement("span");
     estadoSpan.classList.add("estado-flag");
-    
+
     if (tarefa.idConclusao) {
       estadoSpan.textContent = "Concluida";
       estadoSpan.classList.add("estado-flag-concluida");
     } else {
       estadoSpan.textContent = "Por concluir";
       estadoSpan.classList.add("estado-flag-por-concluir");
-
     }
 
     estado.appendChild(estadoSpan);
 
-   // estado.textContent = tarefa.realizada ? "Concluida" : "Por concluir";
-
+    // estado.textContent = tarefa.realizada ? "Concluida" : "Por concluir";
 
     const btnEditar = document.createElement("button");
     btnEditar.textContent = "Editar";
-    btnEditar.classList.add("format_botoesDetalhe");
+    btnEditar.classList.add("btn");
     btnEditar.addEventListener("click", () => {
       edicaoAtiva = true;
       atualizarDetalhe();
     });
 
-    
     const btnConcluir = document.createElement("button");
-    btnConcluir.setAttribute("id","btnConcl")
+    btnConcluir.setAttribute("id", "btnConcl");
     btnConcluir.textContent = "Concluir Tarefa";
-    btnConcluir.classList.add("format_botoesDetalhe");
-    
-    if(tarefa.idConclusao==0){
-      btnConcluir.addEventListener("click", () => {
-        editarTarefa({idConclusao:new Date().getTime()});
-      })
-    }else{
-      btnConcluir.addEventListener("click",()=>{ 
-        document.getElementById("msgConcluida").style.display = "block";
+    btnConcluir.classList.add("btn");
 
-    });
+    if (tarefa.idConclusao == 0) {
+      btnConcluir.addEventListener("click", () => {
+        editarTarefa({ idConclusao: new Date().getTime() });
+      });
+    } else {
+      btnConcluir.addEventListener("click", () => {
+        document.getElementById("msgConcluida").style.display = "block";
+      });
     }
 
     div_DetalheTarefas.append(nome, descricao, estado, btnEditar, btnConcluir);
   }
 
-
   const btnRemover = document.createElement("button");
   btnRemover.textContent = "Remover";
   btnRemover.addEventListener("click", removerTarefa);
-btnRemover.classList.add("format_botoesDetalhe");
+  btnRemover.classList.add("btn");
   div_DetalheTarefas.append(btnRemover);
 };
-
 
 const limparDetalhes = () => {
   const div_DetalheTarefas = document.getElementById("div_DetalheTarefas");
@@ -348,8 +338,4 @@ function editarTarefa(novaTarefa = {}) {
 
   atualizarLista();
   atualizarDetalhe();
-}
-
-{
-
 }
