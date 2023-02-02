@@ -2,7 +2,7 @@ let listaTarefas = JSON.parse(localStorage.getItem("listaTarefas"));
 let tarefaAtivaId;
 let edicaoAtiva = false;
 
-function send() {
+function login() {
   //e.preventDefault();
   var input_user = document.getElementById("username").value;
   var input_password = document.getElementById("password").value;
@@ -23,25 +23,27 @@ function send() {
 }
 
 function irAdicionarTarefa() {
-  //e.preventDefault();
+ // event.preventDefault();
   window.open("newTask.html", "_self");
 }
-function irHomePage() {
-  window.open("homePage.html", "_self");
+function irHomePage(event) {
+  console.log("Aqui há gato!!")
+  event.preventDefault;
+  //window.open("homePage.html", "_self");
 }
 
 /**
  * Cria uma nova tarefa se os dados forem válidos
  */
-function criarNovaTarefa() {
-  event.preventDefault();
+function criarNovaTarefa(event) {
+  //event.preventDefault();
 
+  //acede ao elemento e obtem os valores da descrição e nome da tarefa
   var descr_input = document.getElementById("descricao").value;
   var nome_input = document.getElementById("nameTask").value;
 
-  console.log("Description: " + descr_input);
-  console.log("Nome: " + nome_input);
-
+ 
+  //filtra a possibilidade de existirem tarefas em que os carateres são espaços
   if (
     descr_input &&
     nome_input &&
@@ -75,11 +77,11 @@ function escondeError() {
 function atribuirId() {
   let listaTarefas = JSON.parse(localStorage.getItem("listaTarefas"));
   let iD = listaTarefas.length + new Date().getTime();
-  return iD++;
+  return iD;
 }
 
+//Listener só é ativo quando a homePage ou a newTask são carregadas 
 const paginasAutenticadas = ["/homePage.html", "/newTask.html"];
-
 if (paginasAutenticadas.includes(window.location.pathname)) {
   window.addEventListener("load", (event) => {
     // obter o user from localstorage - browser
@@ -87,7 +89,11 @@ if (paginasAutenticadas.includes(window.location.pathname)) {
 
     //console.log(utilizador.value); // para imprimir na consola
     var userLogado = document.getElementById("nomeLogado");
-    if (userLogado) userLogado.innerHTML = "Bem-Vindo!\n" + utilizador;
+    if (userLogado){
+    userLogado.innerHTML = "Bem-Vindo!\n" + utilizador;
+    }else{//se o nome logado for null significa que o user entrou sem fazer login. deve ser direcionado para a pagina login
+      window.open("index.html", "_self");
+    }
 
     if (window.location.pathname === "/homePage.html") {
       atualizarLista();
@@ -96,15 +102,19 @@ if (paginasAutenticadas.includes(window.location.pathname)) {
 
     if (window.location.pathname === "/newTask.html") {
       gerirClickCriarTarefa();
+    
     }
   });
 }
 
+//eventListener para não colidir com o submit do button
 const gerirClickCriarTarefa = () => {
-  const form = document.getElementById("formNewTask");
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
+  
+  const formulario = document.getElementById("formNewTask");
+  formulario.addEventListener("submit", (event) => {
+    event.preventDefault;
     criarNovaTarefa();
+   
   });
 };
 
