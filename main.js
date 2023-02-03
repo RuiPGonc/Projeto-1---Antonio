@@ -59,7 +59,7 @@ function criarNovaTarefa(event) {
     novaTarefa.nome = nome_input;
     novaTarefa.descricao = descr_input;
     //novaTarefa.realizada = false;
-    novaTarefa.idConclusao = 0;
+    novaTarefa.idConclusao = null;
 
     //traz a lista de tarefas que já existe
     let listaTarefas = JSON.parse(localStorage.getItem("listaTarefas"));
@@ -106,7 +106,7 @@ if (paginasAutenticadas.includes(window.location.pathname)) {
     if (window.location.pathname === "/homePage.html") {
       //para limpar a session Storage
       sessionStorage.setItem("tarefaAtivaId", null);
-
+      document.getElementById("btnEdit").style.display = "none";
       atualizarLista();
       gerirClickNaTarefa();
       gerirBotaoEditar();
@@ -277,11 +277,17 @@ const gerirClickNaTarefa = () => {
         }
       } else if (elemento.id === "chkbox_realizada") {
         const tarefaClicadaId = elemento.parentElement.getAttribute("data-id");
-        console.log(tarefaClicadaId);
         if (tarefaClicadaId) {
           tarefaAtivaId = Number(tarefaClicadaId);
         }
+   
         gerirConcluir();
+      }
+      if (tarefaAtivaId !== null){
+        mostrarBotao();
+      }
+      else {
+        document.getElementById("btnEdit").style.display = "none";
       }
     });
 };
@@ -323,8 +329,7 @@ const gerirBotaoEditar = () => {
 
 function removerTarefa(tarefaAtiva) {
   //a função filter filtra todos os elementos que cumpram a condição indicada. Neste caso seleciona todas as que tiverem um id diferente do id da tarefa ativa
-  const tarefasLimpas = listaTarefas.filter(
-    (tarefa) => tarefa.id !== tarefaAtiva
+  const tarefasLimpas = listaTarefas.filter((tarefa) => tarefa.id !== tarefaAtiva
   );
 
   listaTarefas = tarefasLimpas;
@@ -336,6 +341,7 @@ function removerTarefa(tarefaAtiva) {
 }
 
 function editarTarefa(novaTarefa = {}) {
+
   const index = listaTarefas.findIndex((tarefa) => tarefaAtivaId === tarefa.id);
   const tarefa = listaTarefas[index];
 
@@ -351,3 +357,8 @@ function editarTarefa(novaTarefa = {}) {
   irHomePage();
   atualizarLista();
   }
+
+function mostrarBotao() {
+  document.getElementById("btnEdit").style.display = "block";
+
+}
