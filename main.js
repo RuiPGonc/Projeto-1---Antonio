@@ -1,5 +1,5 @@
 let listaTarefas = JSON.parse(localStorage.getItem("listaTarefas"));
- var tarefaAtivaId;
+var tarefaAtivaId;
 //let edicaoAtiva = false;
 
 function login() {
@@ -23,7 +23,7 @@ function login() {
 }
 
 function irNewTask() {
- // event.preventDefault();
+  // event.preventDefault();
   window.open("newTask.html", "_self");
 }
 
@@ -32,8 +32,8 @@ function irHomePage(event) {
   window.open("homePage.html", "_self");
 }
 
-function irIndexPage(){
-  window.open("index.html","_self");
+function irIndexPage() {
+  window.open("index.html", "_self");
 }
 
 /**
@@ -46,7 +46,6 @@ function criarNovaTarefa(event) {
   var descr_input = document.getElementById("descricao").value;
   var nome_input = document.getElementById("nameTask").value;
 
- 
   //filtra a possibilidade de existirem tarefas em que os carateres são espaços
   if (
     descr_input &&
@@ -75,14 +74,9 @@ function criarNovaTarefa(event) {
 }
 
 function escondeError() {
- 
-if ("/index.html".includes(window.location.pathname)) {
-  document.getElementById("mensagemErro").style.display = "none";
-}
-if("/homePage.html".includes(window.location.pathname)){
-  document.getElementById("msgConcluida").style.display = "none";
-  document.getElementById("msgSelecionar").style.display = "none";
-}
+  if ("/index.html".includes(window.location.pathname)) {
+    document.getElementById("msgPreenchimento").style.display = "none";
+  }
 }
 
 function atribuirId() {
@@ -91,62 +85,59 @@ function atribuirId() {
   return iD;
 }
 
-//Listener só é ativo quando a homePage ou a newTask são carregadas 
+//Listener só é ativo quando a homePage ou a newTask são carregadas
 const paginasAutenticadas = ["/homePage.html", "/newTask.html"];
 if (paginasAutenticadas.includes(window.location.pathname)) {
   window.addEventListener("load", (event) => {
-
     //zerar a tarefa ativa
-    tarefaAtivaId="";
+    tarefaAtivaId = null;
 
     // obter o user from localstorage - browser
     const utilizador = localStorage.getItem("nome");
 
     //console.log(utilizador.value); // para imprimir na consola
     var userLogado = document.getElementById("nomeLogado");
-    if (userLogado){
-    userLogado.innerHTML = "Bem-Vindo!\n" + utilizador;
-    }else{//se o nome logado for null significa que o user entrou sem fazer login. deve ser direcionado para a pagina login
+    if (userLogado) {
+      userLogado.innerHTML = "Bem-Vindo!\n" + utilizador;
+    } else {
+      //se o nome logado for null significa que o user entrou sem fazer login. deve ser direcionado para a pagina login
       irIndexPage();
     }
     if (window.location.pathname === "/homePage.html") {
       //para limpar a session Storage
-sessionStorage.setItem("tarefaAtivaId", null);
+      sessionStorage.setItem("tarefaAtivaId", null);
 
       atualizarLista();
       gerirClickNaTarefa();
-      gerirBotaoConcluir();
       gerirBotaoEditar();
     }
     if (window.location.pathname === "/newTask.html") {
-     
       //carregar a info da SessionStorage
-      tarefaAtivaId=JSON.parse(sessionStorage.getItem("tarefaAtivaId"));
+      tarefaAtivaId = JSON.parse(sessionStorage.getItem("tarefaAtivaId"));
       //valida se o user vem do através do btn Nova Tarefa ou se clicou para ver o detalhe de uma tarefa
-      if(tarefaAtivaId==null || tarefaAtivaId==""){
+      if (tarefaAtivaId == null) {
         console.log(tarefaAtivaId);
         gerirClickCriarTarefa();
-      }else{
+      } else {
         verDetalhes(tarefaAtivaId);
-
-    }
+      }
     }
   });
 }
 
-function verDetalhes(tarefaAtivaId){
-const task = listaTarefas.find((task)=> task.id===tarefaAtivaId);
-const txtNome= document.getElementById("nameTask");
-txtNome.setAttribute("placeholder",task.nome);
+function verDetalhes(tarefaAtivaId) {
+  const task = listaTarefas.find((task) => task.id === tarefaAtivaId);
+  const txtNome = document.getElementById("nameTask");
+  txtNome.setAttribute("placeholder", task.nome);
 
-const txtDesc= document.getElementById("descricao");
-txtDesc.setAttribute("placeholder",task.descricao);
+  const txtDesc = document.getElementById("descricao");
+  txtDesc.setAttribute("placeholder", task.descricao);
 
-//mudar titulo da página
-var tituloPagina= document.getElementById("headerNovaTarefa");
-tituloPagina.innerHTML=`Editar Tarefa`;
-tituloPagina.classList.add("tarefas-header");
-topo_div.innerHTML=`  
+  //mudar titulo da página
+  var tituloPagina = document.getElementById("headerNovaTarefa");
+  tituloPagina.innerHTML = `Ver/Editar Tarefa`;
+  tituloPagina.classList.add("tarefas-header");
+  topo_div.innerHTML = `  
       <div class="form-item">
       <input type="checkbox" id="realizada" ${
         task.idConclusao ? "checked" : ""
@@ -155,70 +146,71 @@ topo_div.innerHTML=`
     
       </div>
       `;
-bottom_div.innerHTML=`
+  bottom_div.innerHTML = `
       <div>
         
          <button id="botaoRemover" type="button" class="btn">Remover Tarefa</button>
-          <button id="btnEditar" type="button" class="btn">Editar</button>
+          <button id="btnEditar" type="button" class="btn">Gravar alterações</button>
           <button type="button" id="botaoCancelar" class="btn">Cancelar</button>
       </div> `;
 
-      //btn cancelar
-      document.getElementById("botaoCancelar").addEventListener("click",(event) => {
-       irHomePage()});
+  //btn cancelar
+  document
+    .getElementById("botaoCancelar")
+    .addEventListener("click", (event) => {
+      irHomePage();
+    });
 
-       //btn removerTarefa
-       document.getElementById("botaoRemover").addEventListener("click",(event) => {
-        removerTarefa(tarefaAtivaId);
-       });
-       
-       document.getElementById("btnEditar").addEventListener("click", (evento) => {
-        evento.preventDefault();
-    
-        var novoNome="";
-        var novaDescricao="";
-        var novaRealizada="";
+  //btn removerTarefa
+  document.getElementById("botaoRemover").addEventListener("click", (event) => {
+    removerTarefa(tarefaAtivaId);
+  });
 
-        if(document.getElementById("nameTask").value==""){
-          novoNome=task.nome;
-        }else{
-          novoNome=document.getElementById("nameTask").value;
-        }
-        if(document.getElementById("descricao").value==""){
-          novaDescricao=task.descricao;
-        }else{
-          novaDescricao=document.getElementById("descricao").value;
-        }
-        novaRealizada= novaRealizada = document.getElementById("realizada").checked;
+  document.getElementById("btnEditar").addEventListener("click", (evento) => {
+    evento.preventDefault();
 
-  
-  //só pretendemos adicionar um idConclusão, quando a tarefa é concluida. Ou seja, qnd o estado inicial era desmarcada(false) e passa a marcada(true) 
-  //o if impede que seja atribuido um novo idConclusão. Caso fosse atribuido, a tarefa seria ordenada na lista novamente
-        if ((task.idConclusao == 0 && novaRealizada == 1)) {
-          editarTarefa({
-            nome: novoNome,
-            descricao: novaDescricao,
-            idConclusao: atribuirId(),
-          });
-        } else {
-          editarTarefa({
-            nome: novoNome,
-            descricao: novaDescricao,
-            idConclusao: novaRealizada,
-          });
-        }
+    var novoNome = "";
+    var novaDescricao = "";
+    var novaRealizada = "";
+
+    if (document.getElementById("nameTask").value == "") {
+      novoNome = task.nome;
+    } else {
+      novoNome = document.getElementById("nameTask").value;
+    }
+    if (document.getElementById("descricao").value == "") {
+      novaDescricao = task.descricao;
+    } else {
+      novaDescricao = document.getElementById("descricao").value;
+    }
+    novaRealizada = novaRealizada =
+      document.getElementById("realizada").checked;
+
+    //só pretendemos adicionar um idConclusão, quando a tarefa é concluida. Ou seja, qnd o estado inicial era desmarcada(false) e passa a marcada(true)
+    //o if impede que seja atribuido um novo idConclusão. Caso fosse atribuido, a tarefa seria ordenada na lista novamente
+    if (task.idConclusao == 0 && novaRealizada == 1) {
+      editarTarefa({
+        nome: novoNome,
+        descricao: novaDescricao,
+        idConclusao: atribuirId(),
       });
+    } else {
+      editarTarefa({
+        nome: novoNome,
+        descricao: novaDescricao,
+        idConclusao: novaRealizada,
+      });
+    }
+  });
 }
 
 //eventListener para não colidir com o submit do button
 const gerirClickCriarTarefa = () => {
-  
   const btnCriarTarefa = document.getElementById("btnAddTask");
   btnCriarTarefa.addEventListener("click", (event) => {
     event.preventDefault;
-   
+
     criarNovaTarefa();
-  
   });
 };
 
@@ -256,213 +248,77 @@ const criarItem = (tarefa) => {
   item.setAttribute("data-id", tarefa.id);
   item.className = "lista-tarefa-item";
 
+  item.innerHTML = `
+  <input type="checkbox" id="chkbox_realizada" ${
+    tarefa.idConclusao ? "checked" : ""
+  }>
+  <label for="realizada_text"> &nbsp ${tarefa.nome}</label>
+      `;
 
   if (tarefa.idConclusao) {
     item.classList.add("riscado");
   }
-
   //coloca o item, com o respetivo cod HTML dentro da div que vai mostrar a lista
   document.getElementById("div_ListaTarefas").appendChild(item);
 };
-
-//para ver a descrição na div "Detalhe"
-/*const verDescricao = (id_tarefa) => {
-  for (let i = 0; i < listaTarefas.length; i++) {
-    if (listaTarefas[i].id == id_tarefa) {
-      const item = document.createElement("label");
-      item.classList.add("class_DetalheTarefa");
-      item.innerHTML = listaTarefas[i].descricao;
-      document.setElementById("div_DetalheTarefas").appendChild(item);
-      break;
-    }
-  }
-};*/
 
 const gerirClickNaTarefa = () => {
   document
     .getElementById("div_ListaTarefas")
     .addEventListener("click", (event) => {
-      //ara limpar as mensagens de erro
-     escondeError();
+     
 
       const elemento = event.target;
 
-      if (elemento.tagName === "BUTTON" || elemento.tagName === "DIV") {
+      if (elemento.tagName === "BUTTON") {
         const tarefaClicadaId = elemento.getAttribute("data-id");
         if (tarefaClicadaId) {
-          tarefaAtivaId = Number(tarefaClicadaId); 
-         
-         // atualizarDetalhe();
+          tarefaAtivaId = Number(tarefaClicadaId);
         }
+      } else if (elemento.id === "chkbox_realizada") {
+        const tarefaClicadaId = elemento.parentElement.getAttribute("data-id");
+        console.log(tarefaClicadaId);
+        if (tarefaClicadaId) {
+          tarefaAtivaId = Number(tarefaClicadaId);
+        }
+        gerirConcluir();
       }
     });
 };
 
-//gerir o botão "marcar como concluida"
-const gerirBotaoConcluir = () => {
-  document
-    .getElementById("btnConcluir")
-    .addEventListener("click", (event) => {
-    
-const tarefa = listaTarefas.find((tarefa) => tarefa.id === tarefaAtivaId);
+function gerirConcluir() {
 
-if(tarefa==0 || tarefa==null){
-  document.getElementById("msgSelecionar").style.display = "block";
-}else{
-if(tarefa.idConclusao == 0) {
-      editarTarefa({ idConclusao: new Date().getTime() });
-  }else{
-    document.getElementById("msgConcluida").style.display = "block";
-  }
-}
-});
-}
+      const tarefa = listaTarefas.find((tarefa) => tarefa.id === tarefaAtivaId);
+
+      if (tarefa.idConclusao == 0) {
+        editarTarefa({
+          nome: tarefa.nome,
+          descricao: tarefa.descricao,
+          idConclusao: atribuirId(), });
+      } else {
+        editarTarefa({
+          nome: tarefa.nome,
+          descricao: tarefa.descricao,
+          idConclusao: false, });
+      };
+};
+
 
 //gerir o botão "Editar Tarefa"
 const gerirBotaoEditar = () => {
-  document
-    .getElementById("btnEdit")
-    .addEventListener("click", (event) => {
-    
-const tarefa = listaTarefas.find((tarefa) => tarefa.id === tarefaAtivaId);
+  document.getElementById("btnEdit").addEventListener("click", (event) => {
+    const tarefa = listaTarefas.find((tarefa) => tarefa.id === tarefaAtivaId);
 
-if(tarefa==0 || tarefa==null){
-  document.getElementById("msgSelecionar").style.display = "block";
-}else{
- //guardar a variável na Session Storage
- sessionStorage.setItem("tarefaAtivaId", JSON.stringify(tarefaAtivaId));
-
- irNewTask();
-}
-})
-};
-
-/*
-const atualizarDetalhe = () => {
-  limparDetalhes();
-  document.getElementById("msgConcluida").style.display = "none";
-  const tarefa = listaTarefas.find((tarefa) => tarefa.id === tarefaAtivaId);
-  const div_DetalheTarefas = document.getElementById("div_DetalheTarefas");
-
-  if (edicaoAtiva) {
-    div_DetalheTarefas.innerHTML = `
-    <form id="editarTarefa">
-      <div class="form-item">
-        <label  for="name">Nome:</label>
-        <input type="texto"placeholder="Nome" id="nome" value="${
-          tarefa.nome}" />
-      </div>
-      <div class="form-item">
-        <label for="descricao">Descriçáo:</label>
-        <textarea placeholder="Descricao" 
-         id="descricao">${tarefa.descricao}</textarea>
-      </div>
-      <div class="form-item">
-         <label  for="realizada">Estado:</label>
-          <input type="checkbox" id="realizada" ${
-            tarefa.idConclusao ? "checked" : ""} />
-      </div>
-      <div>
-          <button type="submit" class="btn">Gravar</button>
-          <button class="btn">Cancelar</button>
-      </div>
-    </form>
-    `;
-
-
-    document
-      .getElementById("btnCancelar")
-      .addEventListener("click", abortarEdicao);
-
-    document.getElementById("btnEditar").addEventListener("click", (evento) => {
-      evento.preventDefault();
-
-      const novoNome = document.getElementById("nome").value;
-      const novaDescricao = document.getElementById("descricao").value;
-      const novaRealizada = document.getElementById("realizada").checked;
-
-      if (tarefa.idConclusao == 0 && novaRealizada !== tarefa.idConclusao) {
-        editarTarefa({
-          nome: novoNome,
-          descricao: novaDescricao,
-          idConclusao: atribuirId(),
-        });
-      } else {
-        editarTarefa({
-          nome: novoNome,
-          descricao: novaDescricao,
-          idConclusao: novaRealizada,
-        });
-      }
-    });
-  } else {
-    const nome = document.createElement("h4");
-    nome.setAttribute("id", "nomeTarefa");
-    nome.textContent = tarefa.nome;
-
-    const descricao = document.createElement("p");
-    descricao.setAttribute("id", "descricaoTarefa");
-    descricao.classList.add("citacao");
-    descricao.textContent = tarefa.descricao;
-
-    const estado = document.createElement("p");
-    estado.setAttribute("id", "estadoTarefa");
-    const estadoSpan = document.createElement("span");
-    estadoSpan.classList.add("estado-flag");
-
-    if (tarefa.idConclusao) {
-      estadoSpan.textContent = "Concluida";
-      estadoSpan.classList.add("estado-flag-concluida");
+    if (tarefa == 0 || tarefa == null) {
+      document.getElementById("msgSelecionar").style.display = "block";
     } else {
-      estadoSpan.textContent = "Por concluir";
-      estadoSpan.classList.add("estado-flag-por-concluir");
+      //guardar a variável na Session Storage
+      sessionStorage.setItem("tarefaAtivaId", JSON.stringify(tarefaAtivaId));
+
+      irNewTask();
     }
-
-    estado.appendChild(estadoSpan);
-
-    // estado.textContent = tarefa.realizada ? "Concluida" : "Por concluir";
-
-    const btnEditar = document.createElement("button");
-    btnEditar.textContent = "Editar";
-    btnEditar.classList.add("btn");
-    btnEditar.addEventListener("click", () => {
-      edicaoAtiva = true;
-      atualizarDetalhe();
-    });
-
-    const btnConcluir = document.createElement("button");
-    btnConcluir.setAttribute("id", "btnConcl");
-    btnConcluir.textContent = "Concluir Tarefa";
-    btnConcluir.classList.add("btn");
-
-    if (tarefa.idConclusao == 0) {
-      btnConcluir.addEventListener("click", () => {
-        editarTarefa({ idConclusao: new Date().getTime() });
-      });
-    } else {
-      btnConcluir.addEventListener("click", () => {
-        document.getElementById("msgConcluida").style.display = "block";
-      });
-    }
-
-    div_DetalheTarefas.append(nome, descricao, estado, btnEditar, btnConcluir);
-  }
-
-  const btnRemover = document.createElement("button");
-  btnRemover.textContent = "Remover";
-  btnRemover.addEventListener("click", removerTarefa);
-  btnRemover.classList.add("btn");
-  div_DetalheTarefas.append(btnRemover);
-};*/
-
-/*const limparDetalhes = () => {
-  const div_DetalheTarefas = document.getElementById("div_DetalheTarefas");
-  while (div_DetalheTarefas.firstChild) {
-    div_DetalheTarefas.removeChild(div_DetalheTarefas.lastChild);
-  }
+  });
 };
-*/
-
 
 
 function removerTarefa(tarefaAtiva) {
@@ -473,16 +329,11 @@ function removerTarefa(tarefaAtiva) {
 
   listaTarefas = tarefasLimpas;
   localStorage.setItem("listaTarefas", JSON.stringify(tarefasLimpas));
-  
+
   irHomePage();
   atualizarLista();
- // limparDetalhes();
+  // limparDetalhes();
 }
-
-/*function abortarEdicao() {
-  //edicaoAtiva = false;
- // atualizarDetalhe();
-}*/
 
 function editarTarefa(novaTarefa = {}) {
   const index = listaTarefas.findIndex((tarefa) => tarefaAtivaId === tarefa.id);
@@ -491,14 +342,12 @@ function editarTarefa(novaTarefa = {}) {
   const tarefaEditada = {
     ...tarefa,
     ...novaTarefa,
-    id: tarefa.id, };
+    id: tarefa.id,
+  };
 
   listaTarefas[index] = tarefaEditada;
   localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
-  //edicaoAtiva = false;
-
 
   irHomePage();
   atualizarLista();
-  //atualizarDetalhe();
-}
+  }

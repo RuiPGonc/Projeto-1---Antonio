@@ -11,7 +11,7 @@
 }
 
 body {
-  background-color: #f7f7f762;
+  background-color: white;
   height: 100vh;
   width: 100vw;
 }
@@ -130,8 +130,6 @@ div#side-bar {
   padding: 0 20px;
 }
 
-#top {
-}
 
 #nomeLogado {
   margin-top: 10px;
