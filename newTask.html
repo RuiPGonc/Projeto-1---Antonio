@@ -31,10 +31,13 @@
 
       <div id="novaTarefa">
         <div id="tarefas-header">
-          <h3 class="tarefas-header">Adicionar Nova Tarefa</h3>
+          <h3 id="headerNovaTarefa" class="tarefas-header" >Adicionar Nova Tarefa</h3>
         </div>
+        <DIV id="topo_div">
+
+        </DIV>
         <form method="post" id="formNewTask">
-          <div id="mensagemErro" onclick="escondeError()"></div>
+          <div id="mensagemErro" onclick="escondeError()">Preencha todos os campos para criar um nova tarefa</div>
           <div id="idnewTask">
             <label class="txtNewTask" for="nameTask">Nome da Tarefa:</label>
             <input
@@ -57,11 +60,15 @@
             ></textarea>
             <br />
           </div>
-          <button type="submit" id="btnAddTask" class="btn">
+          <div id="bottom_div">
+          <button type="button" id="btnAddTask" class="btn">
             Criar tarefa
           </button>
+                   
+          </div>
         </form>
+
       </div>
     </main>
-  </body>
+  </body>
 </html>

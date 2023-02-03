@@ -38,6 +38,64 @@ Ecrãs grandes: acima de 1200px
     width: 500px;
     height: 30px;
   }
+  #tarefas-header{
+width: 99%;
+  }
+
+  .lista-tarefa-item {
+    background-color: #c3da9f;
+    margin-top: 4px;
+    height: 30px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    font-size: 1rem;
+  }
+  .lista-tarefa-item:hover {
+    background-color: #a9d36c;
+  }
+  .lista-tarefa-item:focus {
+    border: 2px solid #a9d36c;
+    background-color: #a9d36c;
+  }
+  .riscado {
+    text-decoration: line-through;
+    background-color: rgba(241, 10, 10, 0.25);
+  }
+  .riscado:hover {
+    background-color: rgba(241, 10, 10, 0.5);
+  }
+  .riscado:focus {
+    border: 2px solid rgba(241, 10, 10, 0.5);
+    background-color: rgba(241, 10, 10, 0.8);
+  }
+  
+  .btn {
+    padding: 6px 12px;
+    width: 100%;
+    border-radius: 8px;
+    background-color: #cff299;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+  }
+
+  #nomeLogado {
+    margin-top: 20px;
+    margin-bottom: 30px;;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    font-size: 1em;
+  }
+
 
   #descricao {
     border: 1px solid black;
@@ -45,12 +103,16 @@ Ecrãs grandes: acima de 1200px
     width: 500px;
   }
 
-  input#btnAddTask {
-    margin-left: 200px;
-    margin-block-start: auto;
-  }
+  #btnAddTask{
+   display: flex;
+   text-align: center;
+   width: 70%; 
+   align-content: center;
+   flex-wrap: wrap;
+   justify-content: center;
+   padding: 20px;
 }
-
+}
 @media screen and (min-width: 992px) and (max-width: 1200px) {
   section#Login {
     width: 950px;
@@ -72,6 +134,18 @@ Ecrãs grandes: acima de 1200px
   div#divFormulario > h1 {
     font-size: 2em;
   }
+  #tarefas-header{
+    width: 100%;
+    font-size: 1.2em;
+      }
+      .lista-tarefa-item {
+        padding: 2rem;
+        font-size: 1.2rem;
+      }
+      .btn{
+        font-size: 1rem;
+
+      }
 
   div#divFormulario > p {
     font-size: 1.2em;
@@ -134,49 +208,28 @@ Ecrãs grandes: acima de 1200px
     border-radius: 2px;
     width: 500px;
   }
-
+.form-item{
+  font-size: 1rem;
+}
+  #div_ListaTarefas{
+width: 100%;
+ } 
   input#btnAddTask {
     margin-left: 200px;
     margin-block-start: auto;
   }
-/*-----------------------------*/
-
-  #nomeLogado {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: white;
-    border-radius: 8px;
-  }
-  .btn {
-    padding: 6px 12px;
-    width: 100%;
-    border-radius: 8px;
-    background-color: #cff299;
-    cursor: pointer;
-    font-size: 1rem;
-    margin-top: 20px;
-    text-align: center;
-    color: black;
-    text-decoration: none;
-  }
-
-  .lista-tarefa-item {
-    background-color: #c3da9f;
-    margin-top: 4px;
-    height: 30px;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    cursor: pointer;
-    border-radius: 8px;
-    border: 2px solid transparent;
-    font-size: 1rem;
-  }
+ #nomeLogado{
+  font-size: 1.2rem;
+  margin-top: 20px;
+  padding: 15px;
+ }
+.btn{
+  padding: 10px;
+}
   #tarefas {
     display: flex;
     width: 100%;
-    flex-direction: row;
+    flex-direction: column;
   }
   #div_DetalheTarefas {
     padding: 20px;
@@ -188,22 +241,5 @@ Ecrãs grandes: acima de 1200px
     margin-left: 30px;
     width: 300px;
   }
-  .lista-tarefa-item:hover {
-    background-color: #a9d36c;
-  }
-  .lista-tarefa-item:focus {
-    border: 2px solid #a9d36c;
-    background-color: #a9d36c;
-  }
-  .riscado {
-    text-decoration: line-through;
-    background-color: rgba(241, 10, 10, 0.25);
-  }
-  .riscado:hover {
-    background-color: rgba(241, 10, 10, 0.5);
-  }
-  .riscado:focus {
-    border: 2px solid rgba(241, 10, 10, 0.5);
-    background-color: rgba(241, 10, 10, 0.8);
-  }
+ 
 }

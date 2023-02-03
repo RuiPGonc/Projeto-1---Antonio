@@ -17,6 +17,10 @@
   <body>
     <div class="msgAlerta" id="msgConcluida">
       <p>A tarefa selecionada já se encontra concluida!</p>
+      <p>Para efetuar alterações na tarefa selecione o botão Editar.</p>
+    </div>
+    <div class="msgAlerta" id="msgSelecionar">
+      <p>Por favor selecione uma tarefa!</p>
     </div>
     <main id="HomePage">
       <div id="side-bar">
@@ -24,7 +28,7 @@
           <h3 id="nomeLogado">NomeLogado</h3>
           <button
             id="btnNovaTarefa"
-            onclick="irAdicionarTarefa()"
+            onclick="irNewTask()"
             value="Nova Tarefa"
             class="btn"
           >
@@ -43,14 +47,10 @@
           <div id="div_ListaTarefas" class="class_listaTarefas">
             <!-- div criada para mostrar a lista de tarefas-->
           </div>
-        </div>
-        <div id="detalhe">
-          <div id="detalhe-header">
-            <h3 class="detalhe-header">Detalhe Tarefas</h3>
-          </div>
-          <div id="div_DetalheTarefas" class="class_DetalheTarefa">
-            <!-- div criada para mostrar a descrição da tarefa-->
-          </div>
+        </div>  
+        <div id="btnTarefas">
+          <button id="btnConcluir" type="button" class="btn">Marcar como concluida</button>
+          <button id="btnEdit" type="button" class="btn">Editar Tarefa</button>
         </div>
       </div>
     </main>

@@ -1,6 +1,6 @@
 let listaTarefas = JSON.parse(localStorage.getItem("listaTarefas"));
-let tarefaAtivaId;
-let edicaoAtiva = false;
+ var tarefaAtivaId;
+//let edicaoAtiva = false;
 
 function login() {
   //e.preventDefault();
@@ -11,25 +11,29 @@ function login() {
     // * Grava em loca storage - browser
     localStorage.setItem("nome", input_user);
     //mudar de página
-    window.open("homePage.html", "_self");
+    irHomePage();
 
     //se ao abrir o programa não existir uma lista de tarefas é criada uma.
     if (localStorage.getItem("listaTarefas") === null) {
       localStorage.setItem("listaTarefas", JSON.stringify([]));
     }
   } else {
-    document.getElementById("msgPreenchimento").style.display = "block"; //torna a mensagemd e erro visivel
+    document.getElementById("msgPreenchimento").style.display = "block"; //torna a mensagem de erro visivel
   }
 }
 
-function irAdicionarTarefa() {
+function irNewTask() {
  // event.preventDefault();
   window.open("newTask.html", "_self");
 }
+
 function irHomePage(event) {
-  console.log("Aqui há gato!!")
   //event.preventDefault;
   window.open("homePage.html", "_self");
+}
+
+function irIndexPage(){
+  window.open("index.html","_self");
 }
 
 /**
@@ -71,7 +75,14 @@ function criarNovaTarefa(event) {
 }
 
 function escondeError() {
+ 
+if ("/index.html".includes(window.location.pathname)) {
   document.getElementById("mensagemErro").style.display = "none";
+}
+if("/homePage.html".includes(window.location.pathname)){
+  document.getElementById("msgConcluida").style.display = "none";
+  document.getElementById("msgSelecionar").style.display = "none";
+}
 }
 
 function atribuirId() {
@@ -84,6 +95,10 @@ function atribuirId() {
 const paginasAutenticadas = ["/homePage.html", "/newTask.html"];
 if (paginasAutenticadas.includes(window.location.pathname)) {
   window.addEventListener("load", (event) => {
+
+    //zerar a tarefa ativa
+    tarefaAtivaId="";
+
     // obter o user from localstorage - browser
     const utilizador = localStorage.getItem("nome");
 
@@ -92,29 +107,118 @@ if (paginasAutenticadas.includes(window.location.pathname)) {
     if (userLogado){
     userLogado.innerHTML = "Bem-Vindo!\n" + utilizador;
     }else{//se o nome logado for null significa que o user entrou sem fazer login. deve ser direcionado para a pagina login
-      window.open("index.html", "_self");
+      irIndexPage();
     }
-
     if (window.location.pathname === "/homePage.html") {
+      //para limpar a session Storage
+sessionStorage.setItem("tarefaAtivaId", null);
+
       atualizarLista();
       gerirClickNaTarefa();
+      gerirBotaoConcluir();
+      gerirBotaoEditar();
     }
-
     if (window.location.pathname === "/newTask.html") {
-      gerirClickCriarTarefa();
-    
+     
+      //carregar a info da SessionStorage
+      tarefaAtivaId=JSON.parse(sessionStorage.getItem("tarefaAtivaId"));
+      //valida se o user vem do através do btn Nova Tarefa ou se clicou para ver o detalhe de uma tarefa
+      if(tarefaAtivaId==null || tarefaAtivaId==""){
+        console.log(tarefaAtivaId);
+        gerirClickCriarTarefa();
+      }else{
+        verDetalhes(tarefaAtivaId);
+
+    }
     }
   });
+}
+
+function verDetalhes(tarefaAtivaId){
+const task = listaTarefas.find((task)=> task.id===tarefaAtivaId);
+const txtNome= document.getElementById("nameTask");
+txtNome.setAttribute("placeholder",task.nome);
+
+const txtDesc= document.getElementById("descricao");
+txtDesc.setAttribute("placeholder",task.descricao);
+
+//mudar titulo da página
+var tituloPagina= document.getElementById("headerNovaTarefa");
+tituloPagina.innerHTML=`Editar Tarefa`;
+tituloPagina.classList.add("tarefas-header");
+topo_div.innerHTML=`  
+      <div class="form-item">
+      <input type="checkbox" id="realizada" ${
+        task.idConclusao ? "checked" : ""
+      } />
+      <label  for="realizada">Tarefa Concluida </label>
+    
+      </div>
+      `;
+bottom_div.innerHTML=`
+      <div>
+        
+         <button id="botaoRemover" type="button" class="btn">Remover Tarefa</button>
+          <button id="btnEditar" type="button" class="btn">Editar</button>
+          <button type="button" id="botaoCancelar" class="btn">Cancelar</button>
+      </div> `;
+
+      //btn cancelar
+      document.getElementById("botaoCancelar").addEventListener("click",(event) => {
+       irHomePage()});
+
+       //btn removerTarefa
+       document.getElementById("botaoRemover").addEventListener("click",(event) => {
+        removerTarefa(tarefaAtivaId);
+       });
+       
+       document.getElementById("btnEditar").addEventListener("click", (evento) => {
+        evento.preventDefault();
+    
+        var novoNome="";
+        var novaDescricao="";
+        var novaRealizada="";
+
+        if(document.getElementById("nameTask").value==""){
+          novoNome=task.nome;
+        }else{
+          novoNome=document.getElementById("nameTask").value;
+        }
+        if(document.getElementById("descricao").value==""){
+          novaDescricao=task.descricao;
+        }else{
+          novaDescricao=document.getElementById("descricao").value;
+        }
+        novaRealizada= novaRealizada = document.getElementById("realizada").checked;
+
+  
+  //só pretendemos adicionar um idConclusão, quando a tarefa é concluida. Ou seja, qnd o estado inicial era desmarcada(false) e passa a marcada(true) 
+  //o if impede que seja atribuido um novo idConclusão. Caso fosse atribuido, a tarefa seria ordenada na lista novamente
+        if ((task.idConclusao == 0 && novaRealizada == 1)) {
+          editarTarefa({
+            nome: novoNome,
+            descricao: novaDescricao,
+            idConclusao: atribuirId(),
+          });
+        } else {
+          editarTarefa({
+            nome: novoNome,
+            descricao: novaDescricao,
+            idConclusao: novaRealizada,
+          });
+        }
+      });
 }
 
 //eventListener para não colidir com o submit do button
 const gerirClickCriarTarefa = () => {
   
-  const formulario = document.getElementById("formNewTask");
-  formulario.addEventListener("submit", (event) => {
+  const btnCriarTarefa = document.getElementById("btnAddTask");
+  btnCriarTarefa.addEventListener("click", (event) => {
     event.preventDefault;
-    criarNovaTarefa();
    
+    criarNovaTarefa();
+  
   });
 };
 
@@ -152,6 +256,7 @@ const criarItem = (tarefa) => {
   item.setAttribute("data-id", tarefa.id);
   item.className = "lista-tarefa-item";
 
+
   if (tarefa.idConclusao) {
     item.classList.add("riscado");
   }
@@ -161,7 +266,7 @@ const criarItem = (tarefa) => {
 };
 
 //para ver a descrição na div "Detalhe"
-const verDescricao = (id_tarefa) => {
+/*const verDescricao = (id_tarefa) => {
   for (let i = 0; i < listaTarefas.length; i++) {
     if (listaTarefas[i].id == id_tarefa) {
       const item = document.createElement("label");
@@ -171,24 +276,68 @@ const verDescricao = (id_tarefa) => {
       break;
     }
   }
-};
+};*/
 
 const gerirClickNaTarefa = () => {
   document
     .getElementById("div_ListaTarefas")
     .addEventListener("click", (event) => {
+      //ara limpar as mensagens de erro
+     escondeError();
+
       const elemento = event.target;
 
       if (elemento.tagName === "BUTTON" || elemento.tagName === "DIV") {
         const tarefaClicadaId = elemento.getAttribute("data-id");
         if (tarefaClicadaId) {
-          tarefaAtivaId = Number(tarefaClicadaId);
-          atualizarDetalhe();
+          tarefaAtivaId = Number(tarefaClicadaId); 
+         
+         // atualizarDetalhe();
         }
       }
     });
 };
 
+//gerir o botão "marcar como concluida"
+const gerirBotaoConcluir = () => {
+  document
+    .getElementById("btnConcluir")
+    .addEventListener("click", (event) => {
+    
+const tarefa = listaTarefas.find((tarefa) => tarefa.id === tarefaAtivaId);
+
+if(tarefa==0 || tarefa==null){
+  document.getElementById("msgSelecionar").style.display = "block";
+}else{
+if(tarefa.idConclusao == 0) {
+      editarTarefa({ idConclusao: new Date().getTime() });
+  }else{
+    document.getElementById("msgConcluida").style.display = "block";
+  }
+}
+});
+}
+
+//gerir o botão "Editar Tarefa"
+const gerirBotaoEditar = () => {
+  document
+    .getElementById("btnEdit")
+    .addEventListener("click", (event) => {
+    
+const tarefa = listaTarefas.find((tarefa) => tarefa.id === tarefaAtivaId);
+
+if(tarefa==0 || tarefa==null){
+  document.getElementById("msgSelecionar").style.display = "block";
+}else{
+ //guardar a variável na Session Storage
+ sessionStorage.setItem("tarefaAtivaId", JSON.stringify(tarefaAtivaId));
+
+ irNewTask();
+}
+})
+};
+
+/*
 const atualizarDetalhe = () => {
   limparDetalhes();
   document.getElementById("msgConcluida").style.display = "none";
@@ -201,8 +350,7 @@ const atualizarDetalhe = () => {
       <div class="form-item">
         <label  for="name">Nome:</label>
         <input type="texto"placeholder="Nome" id="nome" value="${
-          tarefa.nome
-        }" />
+          tarefa.nome}" />
       </div>
       <div class="form-item">
         <label for="descricao">Descriçáo:</label>
@@ -212,8 +360,7 @@ const atualizarDetalhe = () => {
       <div class="form-item">
          <label  for="realizada">Estado:</label>
           <input type="checkbox" id="realizada" ${
-            tarefa.idConclusao ? "checked" : ""
-          } />
+            tarefa.idConclusao ? "checked" : ""} />
       </div>
       <div>
           <button type="submit" class="btn">Gravar</button>
@@ -306,31 +453,36 @@ const atualizarDetalhe = () => {
   btnRemover.addEventListener("click", removerTarefa);
   btnRemover.classList.add("btn");
   div_DetalheTarefas.append(btnRemover);
-};
+};*/
 
-const limparDetalhes = () => {
+/*const limparDetalhes = () => {
   const div_DetalheTarefas = document.getElementById("div_DetalheTarefas");
   while (div_DetalheTarefas.firstChild) {
     div_DetalheTarefas.removeChild(div_DetalheTarefas.lastChild);
   }
 };
+*/
 
-function removerTarefa() {
+
+
+function removerTarefa(tarefaAtiva) {
   //a função filter filtra todos os elementos que cumpram a condição indicada. Neste caso seleciona todas as que tiverem um id diferente do id da tarefa ativa
   const tarefasLimpas = listaTarefas.filter(
-    (tarefa) => tarefa.id !== tarefaAtivaId
+    (tarefa) => tarefa.id !== tarefaAtiva
   );
 
   listaTarefas = tarefasLimpas;
   localStorage.setItem("listaTarefas", JSON.stringify(tarefasLimpas));
+  
+  irHomePage();
   atualizarLista();
-  limparDetalhes();
+ // limparDetalhes();
 }
 
-function abortarEdicao() {
-  edicaoAtiva = false;
-  atualizarDetalhe();
-}
+/*function abortarEdicao() {
+  //edicaoAtiva = false;
+ // atualizarDetalhe();
+}*/
 
 function editarTarefa(novaTarefa = {}) {
   const index = listaTarefas.findIndex((tarefa) => tarefaAtivaId === tarefa.id);
@@ -339,13 +491,14 @@ function editarTarefa(novaTarefa = {}) {
   const tarefaEditada = {
     ...tarefa,
     ...novaTarefa,
-    id: tarefa.id,
-  };
+    id: tarefa.id, };
 
   listaTarefas[index] = tarefaEditada;
   localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
-  edicaoAtiva = false;
+  //edicaoAtiva = false;
 
+
+  irHomePage();
   atualizarLista();
-  atualizarDetalhe();
+  //atualizarDetalhe();
 }
