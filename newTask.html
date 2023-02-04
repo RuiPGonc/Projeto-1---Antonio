@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Adicionar Nova Tarefa</title>
-    <link
-      rel="shortcut icon"
-      href="Social-Media-Icons-Glossy-Social-HTML-3.ico"
-      type="image/x-icon"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="media-query.css" />
-    <script src="main.js"></script>
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="../styles/media-query.css" />
+    <script src="scripts/main.js"></script>
   </head>
   <body>
     <main id="NewTask">
@@ -24,50 +20,53 @@
           </h3>
         </div>
         <div id="bottom">
-          <a href="index.html" class="btn">Logout</a>
+          <button id="logout" class="btn">Logout</button>
         </div>
       </div>
 
       <div id="novaTarefa">
         <div id="tarefas-header">
-          <h3 id="headerNovaTarefa" class="tarefas-header" >Adicionar Nova Tarefa</h3>
+          <h3 id="headerNovaTarefa" class="tarefas-header">
+            Adicionar Nova Tarefa
+          </h3>
         </div>
-        <DIV id="topo_div">
-
-        </DIV>
-        <form method="post" id="formNewTask">
-          <div id="mensagemErro" onclick="escondeError()">Preencha todos os campos para criar um nova tarefa</div>
-          <div id="idnewTask">
-            <label class="txtNewTask" for="nameTask">Nome da Tarefa:</label>
-            <input
-              type="text"
-              id="nameTask"
-              name="nameTask"
-              required
-              placeholder="  Atribua um nome à tarefa..."
-            />
-          </div>
-          <div id="idnewDesc">
-            <label class="txtNewTask" for="descricao">Descrição:</label>
-            <textarea
-              name="descricao"
-              id="descricao"
-              cols="40"
-              rows="10"
-              required
-              placeholder=" Introduza uma descrição..."
-            ></textarea>
-            <br />
-          </div>
-          <div id="bottom_div">
-          <button type="button" id="btnAddTask" class="btn">
-            Criar tarefa
-          </button>
-                   
-          </div>
-        </form>
-
+        <div id="topo_div"></div>
+        <div class="formulario-nova-tarefa">
+          <form method="post" id="formNewTask">
+            <div id="mensagemErro" onclick="escondeError()">
+              Preencha todos os campos para criar um nova tarefa
+            </div>
+            <div id="idnewTask">
+              <label class="txtNewTask" for="nameTask">Nome da Tarefa:</label>
+              <input
+                type="text"
+                id="nameTask"
+                name="nameTask"
+                required
+                placeholder="  Atribua um nome à tarefa..."
+              />
+            </div>
+            <div id="idnewDesc">
+              <label class="txtNewTask" for="descricao">Descrição:</label>
+              <textarea
+                name="descricao"
+                id="descricao"
+                cols="40"
+                rows="10"
+                required
+                placeholder=" Introduza uma descrição..."
+              ></textarea>
+              <br />
+            </div>
+            <div id="bottom_div">
+              <button type="button" id="btnAddTask" class="btn">
+                Criar tarefa
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </main>
-  </body>
+     
+  </body>
 </html>

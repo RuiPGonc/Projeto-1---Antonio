@@ -14,6 +14,7 @@ body {
   background-color: white;
   height: 100vh;
   width: 100vw;
+  min-width: 340px;
 }
 
 textarea {
@@ -48,7 +49,7 @@ section#Login {
 }
 section#Login > div#imagem {
   display: block;
-  background: blue url(Imagens/imagemLogin5.jpg) no-repeat;
+  background: blue url(../assets/imagens/imagemLogin5.jpg) no-repeat;
   background-size: cover;
   background-position: left top;
   height: 15em;
@@ -122,14 +123,13 @@ div#side-bar {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background: rgb(60, 60, 60) url(Imagens/imagemLoginPB2.jpg) no-repeat;
+  background: rgb(60, 60, 60) url(../assets/imagens/imagemLoginPB2.jpg) no-repeat;
   background-size: cover;
   height: 90vh;
   min-width: 20%;
   border-radius: 20px 0px 0px 20px;
   padding: 0 20px;
 }
-
 
 #nomeLogado {
   margin-top: 10px;
@@ -148,11 +148,12 @@ div#side-bar {
 }
 
 #listaTarefas {
-  display: block;
+  display: flex;
+  flex-direction: column;
   position: relative;
   background-color: rgba(234, 234, 234, 0.6);
   width: 100%;
-  height: 80%;
+  height: 50%;
 }
 #novaTarefa {
   display: flex;
@@ -190,9 +191,6 @@ div#side-bar {
   border-color: black;
   font-size: 13px;
 }
-#tarefas-header{
-  width: 97%;
-}
 
 #bottom {
   width: 100%;
@@ -213,34 +211,31 @@ div#side-bar {
   text-decoration: none;
 }
 
-#btnNovaTarefa, #btnPgInic{
-margin-top: 20px;
+#btnNovaTarefa,
+#btnPgInic {
+  margin-top: 20px;
 }
 .btn:hover {
   background-color: #add571;
 }
 
 #btnAddTask {
-  margin-left: 0px;
+  display: flex;
   width: 100%;
 }
-#formNewTask{
-  display: flex;
-  flex-direction: column;   
-  align-items: flex-start;
- 
-}
 
+#formNewTask {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
 #idnewTask {
   display: flex;
   flex-direction: column;
   line-height: 30px;
   width: 70%;
-  padding: 30px;
-  padding-bottom: 15px;
-  padding-top: 10px;
-
+  padding: 10px 0 15px 0;
 }
 
 #mensagemErro {
@@ -255,7 +250,7 @@ margin-top: 20px;
 #idnewDesc {
   display: flex;
   flex-direction: column;
-  padding: 0px 30px;
+  padding: 0;
   width: auto;
   margin-right: 10px;
 }
@@ -268,7 +263,6 @@ margin-top: 20px;
 
 .txtNewTask {
   line-height: 2;
-  
 }
 
 #nameTask {
@@ -315,15 +309,14 @@ margin-top: 20px;
   background-color: rgba(241, 10, 10, 0.8);
 }
 
-
-#div_DetalheTarefas, #btnTarefas{
+#div_DetalheTarefas,
+#btnTarefas {
   padding: 10px;
   display: flex;
   flex-direction: column;
-  height: 20%;
-  background-color: rgba(234, 234, 234, 0.6);
+  background-color: rgb(242 242 242);
 }
-#btnTarefas >.btn{
+#btnTarefas > .btn {
   padding: 10px;
   margin-top: 8px;
 }
@@ -333,26 +326,34 @@ margin-top: 20px;
   margin-bottom: 10px;
 }
 
-
-#bottom_div{
+#bottom_div {
   display: flex;
   flex-direction: column;
   width: 75%;
-  margin-left: 30px;
+  margin-left: 0;
   height: 100%;
-
 }
 
 .form-item {
   margin: 10px;
   font-size: smaller;
-  vertical-align: top ;
+  vertical-align: top;
   background-color: rgba(245, 245, 220, 0.366);
   padding: 10px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.133);
 }
 
+.add-task {
+  padding: 20px;
+  height: -webkit-fill-available;
+  background-color: rgb(242 242 242);
+  border-top: 1px solid black;
+}
 
+.add-task h3 {
+  padding-bottom: 12px;
+}
 
-
-
+.formulario-nova-tarefa {
+  padding: 20px;
+}

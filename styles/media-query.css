@@ -38,8 +38,8 @@ Ecrãs grandes: acima de 1200px
     width: 500px;
     height: 30px;
   }
-  #tarefas-header{
-width: 99%;
+  #tarefas-header {
+    width: 99%;
   }
 
   .lista-tarefa-item {
@@ -73,7 +73,7 @@ width: 99%;
     border: 2px solid rgba(241, 10, 10, 0.5);
     background-color: rgba(241, 10, 10, 0.8);
   }
-  
+
   .btn {
     padding: 6px 12px;
     width: 100%;
@@ -89,13 +89,12 @@ width: 99%;
 
   #nomeLogado {
     margin-top: 20px;
-    margin-bottom: 30px;;
+    margin-bottom: 30px;
     padding: 10px;
     background-color: white;
     border-radius: 8px;
     font-size: 1em;
   }
-
 
   #descricao {
     border: 1px solid black;
@@ -103,15 +102,15 @@ width: 99%;
     width: 500px;
   }
 
-  #btnAddTask{
-   display: flex;
-   text-align: center;
-   width: 70%; 
-   align-content: center;
-   flex-wrap: wrap;
-   justify-content: center;
-   padding: 20px;
-}
+  #btnAddTask {
+    display: flex;
+    text-align: center;
+    width: 70%;
+    align-content: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+  }
 }
 @media screen and (min-width: 992px) and (max-width: 1200px) {
   section#Login {
@@ -134,18 +133,17 @@ width: 99%;
   div#divFormulario > h1 {
     font-size: 2em;
   }
-  #tarefas-header{
+  #tarefas-header {
     width: 100%;
     font-size: 1.2em;
-      }
-      .lista-tarefa-item {
-        padding: 2rem;
-        font-size: 1.2rem;
-      }
-      .btn{
-        font-size: 1rem;
-
-      }
+  }
+  .lista-tarefa-item {
+    padding: 2rem;
+    font-size: 1.2rem;
+  }
+  .btn {
+    font-size: 1rem;
+  }
 
   div#divFormulario > p {
     font-size: 1.2em;
@@ -187,7 +185,7 @@ width: 99%;
     line-height: 55px;
     padding: 5% 5% 0% 5%;
   }
-  
+
   div#divFormulario > h1 {
     font-size: 2em;
   }
@@ -208,24 +206,24 @@ width: 99%;
     border-radius: 2px;
     width: 500px;
   }
-.form-item{
-  font-size: 1rem;
-}
-  #div_ListaTarefas{
-width: 100%;
- } 
+  .form-item {
+    font-size: 1rem;
+  }
+  #div_ListaTarefas {
+    width: 100%;
+  }
   input#btnAddTask {
     margin-left: 200px;
     margin-block-start: auto;
   }
- #nomeLogado{
-  font-size: 1.2rem;
-  margin-top: 20px;
-  padding: 15px;
- }
-.btn{
-  padding: 10px;
-}
+  #nomeLogado {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    padding: 15px;
+  }
+  .btn {
+    padding: 10px;
+  }
   #tarefas {
     display: flex;
     width: 100%;
@@ -238,8 +236,6 @@ width: 100%;
   }
 
   #btnAddTask {
-    margin-left: 30px;
     width: 300px;
   }
- 
 }
